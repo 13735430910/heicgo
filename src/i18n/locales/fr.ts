@@ -4,7 +4,7 @@ const fr: Translation = {
   siteTitle: "Convertisseur HEIC en JPG — Gratuit, privé, sans upload",
   siteDescription:
     "Convertissez vos photos HEIC en JPG en ligne. 100% privé — vos fichiers restent sur votre appareil. Métadonnées EXIF préservées.",
-  nav: { home: "Accueil", blog: "Blog", faq: "FAQ", about: "À propos" },
+  nav: { home: "Accueil", blog: "Blog", faq: "FAQ", about: "À propos", contact: "Contact" },
   hero: { title: "Convertisseur HEIC en JPG", subtitle: "Gratuit · Privé · Sans upload" },
   dropZone: {
     title: "Déposez vos fichiers HEIC ici",

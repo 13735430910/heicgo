@@ -4,7 +4,7 @@ const ko: Translation = {
   siteTitle: "HEIC을 JPG로 변환 — 무료, 비공개, 업로드 불필요",
   siteDescription:
     "HEIC 사진을 온라인으로 JPG로 변환하세요. 100% 비공개 — 파일이 기기를 떠나지 않습니다. EXIF 데이터 보존.",
-  nav: { home: "홈", blog: "블로그", faq: "FAQ", about: "소개" },
+  nav: { home: "홈", blog: "블로그", faq: "FAQ", about: "소개", contact: "문의하기" },
   hero: { title: "HEIC을 JPG로 변환", subtitle: "무료 · 비공개 · 업로드 불필요" },
   dropZone: {
     title: "HEIC 파일을 여기에 드롭하세요",

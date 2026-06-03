@@ -9,6 +9,7 @@ const en: Translation = {
     blog: "Blog",
     faq: "FAQ",
     about: "About",
+    contact: "Contact",
   },
   hero: {
     title: "HEIC to JPG Converter",

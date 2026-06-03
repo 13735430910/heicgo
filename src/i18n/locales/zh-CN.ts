@@ -9,6 +9,7 @@ const zhCN: Translation = {
     blog: "博客",
     faq: "常见问题",
     about: "关于",
+    contact: "联系我们",
   },
   hero: {
     title: "HEIC 转 JPG 转换器",

@@ -6,6 +6,7 @@ export interface Translation {
     blog: string;
     faq: string;
     about: string;
+    contact: string;
   };
   hero: {
     title: string;

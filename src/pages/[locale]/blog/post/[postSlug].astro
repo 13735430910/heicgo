@@ -4,13 +4,14 @@ import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../../components/ads/AdBanner.astro";
 import AuthorBio from "../../../../components/blog/AuthorBio.astro";
 import { getLocaleFromParams } from "../../../../i18n/ui";
-import { FULL_LOCALES } from "../../../../i18n/translations";
+import { ALL_LOCALES, FULL_LOCALES } from "../../../../i18n/translations";
+import { getBlogTranslation } from "../../../../i18n/blog-translations";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   const paths = [];
   for (const post of posts) {
-    for (const locale of FULL_LOCALES) {
+    for (const locale of ALL_LOCALES) {
       paths.push({ params: { locale, postSlug: post.id }, props: { post } });
     }
   }
@@ -21,12 +22,19 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const locale = getLocaleFromParams(Astro.params);
 const path = Astro.url.pathname;
+
+// Small languages: use translated title/desc, canonical to /en/
+const isFullLocale = FULL_LOCALES.includes(locale);
+const seoPath = isFullLocale ? path : path.replace(`/${locale}/`, "/en/");
+const blogTrans = !isFullLocale ? getBlogTranslation(locale, Astro.params.postSlug || "") : null;
+const displayTitle = blogTrans?.title || post.data.title;
+const displayDesc = blogTrans?.description || post.data.description;
 ---
 
-<BaseLayout locale={locale} title={post.data.title} description={post.data.description} path={path} type="article">
+<BaseLayout locale={locale} title={displayTitle} description={displayDesc} path={seoPath} type="article">
   <article class="max-w-3xl mx-auto px-4 py-12">
     <header class="mb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">{post.data.title}</h1>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">{displayTitle}</h1>
       <div class="flex items-center gap-3 text-sm text-text-muted">
         <time datetime={post.data.publishDate.toISOString()}>
           {post.data.publishDate.toLocaleDateString(locale === "zh-CN" ? "zh-CN" : "en-US", { dateStyle: "medium" })}
@@ -36,7 +44,7 @@ const path = Astro.url.pathname;
         ))}
       </div>
     </header>
-    <div class="prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
+    <div class="prose prose-slate max-w-none max-w-3xl prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
       <Content />
     </div>
     <AuthorBio date={post.data.publishDate} />

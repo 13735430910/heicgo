@@ -4,7 +4,7 @@ const ja: Translation = {
   siteTitle: "HEICからJPGへ変換 — 無料、プライベート、アップロード不要",
   siteDescription:
     "HEIC写真をオンラインでJPGに変換。100%プライベート — ファイルはデバイスから出ません。EXIFデータを保持。",
-  nav: { home: "ホーム", blog: "ブログ", faq: "FAQ", about: "概要" },
+  nav: { home: "ホーム", blog: "ブログ", faq: "FAQ", about: "概要", contact: "お問い合わせ" },
   hero: { title: "HEICからJPGへ変換", subtitle: "無料 · プライベート · アップロード不要" },
   dropZone: {
     title: "HEICファイルをここにドロップ",

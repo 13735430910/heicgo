@@ -59,3 +59,9 @@ This is the only method that:
 | Camera settings | N/A | N/A | N/A | Free |
 | Email | Limited | No | Reduced | Free |
 | Files app | No | Varies | Good | Free |
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — browser-based method for iPhone
+- [Transfer Photos from iPhone to PC](/blog/post/transfer-photos-iphone-to-pc) — move files before converting
+- [Why Are iPhone Photos HEIC?](/blog/post/why-are-iphone-photos-heic) — understand your phone's format choice

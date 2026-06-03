@@ -77,3 +77,9 @@ When converting HEIC to JPEG for sharing:
 3. Use client-side conversion — no upload to third-party servers
 
 [heicgo.com](/) handles all three requirements in one step.
+
+## Further Reading
+
+- [HEIC vs JPEG Comparison](/blog/post/heic-vs-jpeg-comparison) — the two photo formats compared
+- [Understanding Image File Formats](/blog/post/understanding-image-file-formats) — beginner's overview
+- [HEIC to PNG Conversion](/blog/post/heic-to-png-conversion) — when to use PNG instead

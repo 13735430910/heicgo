@@ -52,3 +52,9 @@ For very large batches (1000+), split into groups of 100-200 to avoid browser me
 ## Preserving EXIF in Batch Mode
 
 Most batch converters strip EXIF. heicgo preserves GPS, timestamps, and camera info for every file in the batch — no other free tool does this.
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — single file conversion guide
+- [Reduce Photo File Size for Email](/blog/post/reduce-photo-file-size-email) — optimize batches for sharing
+- [iPhone Photo Storage Guide](/blog/post/iphone-photo-storage-guide) — free up space after batch conversion

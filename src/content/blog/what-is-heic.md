@@ -53,3 +53,9 @@ Despite its technical advantages, HEIC has compatibility issues:
 ## How to convert HEIC to JPG
 
 Use [heicgo.com](/) to convert HEIC files in your browser. No upload, no software install, and EXIF data is preserved.
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — the fastest conversion method
+- [HEIC vs JPEG Comparison](/blog/post/heic-vs-jpeg-comparison) — see how they stack up
+- [Why Are iPhone Photos HEIC?](/blog/post/why-are-iphone-photos-heic) — Apple's reasoning explained

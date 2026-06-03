@@ -83,3 +83,9 @@ You don't need Photoshop for basic image editing. These free browser-based tools
 | Canva | Design + social | Server upload | Limited |
 
 For most photo needs, start with heicgo (format conversion) and Photopea (editing) — both process files locally without uploading to servers.
+
+## Further Reading
+
+- [Best Free HEIC Converters Compared](/blog/post/free-heic-converters-comparison) — conversion tools roundup
+- [Compress JPEG Without Losing Quality](/blog/post/compress-jpeg-without-losing-quality) — editing + compression workflow
+- [Understanding Image File Formats](/blog/post/understanding-image-file-formats) — choose the right format before editing

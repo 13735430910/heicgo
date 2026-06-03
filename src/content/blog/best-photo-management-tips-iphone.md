@@ -83,3 +83,9 @@ Spend 10 minutes each month:
 4. Clear Recently Deleted (saves space immediately)
 
 This habit prevents libraries from becoming unmanageable over years.
+
+## Further Reading
+
+- [iPhone Photo Storage Guide](/blog/post/iphone-photo-storage-guide) — storage optimization
+- [Convert HEIC to JPG on iPhone](/blog/post/convert-heic-to-jpg-iphone) — conversion on your device
+- [Cloud Storage vs Local Storage for Photos](/blog/post/cloud-storage-vs-local-photos) — long-term storage strategy

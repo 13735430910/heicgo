@@ -48,3 +48,9 @@ This is what makes heicgo the only WASM-based converter that preserves GPS and c
 ## Test it yourself
 
 Take a HEIC photo with your iPhone, convert it at [heicgo.com](/), then check the downloaded JPEG with any EXIF viewer. You'll see all metadata intact.
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — use the only converter that preserves EXIF
+- [Convert HEIC Without Uploading](/blog/post/heic-no-upload-privacy) — keep your photos private
+- [HEIC vs JPEG Quality Comparison](/blog/post/heic-vs-jpeg-comparison) — why EXIF matters for photo management

@@ -61,3 +61,9 @@ JPEG can only hold a single image — it was designed in 1992, long before compu
 Settings → Camera → Formats → "Most Compatible" = JPEG
 
 Or keep HEIC and convert on-demand with [heicgo.com](/).
+
+## Further Reading
+
+- [What Is a HEIC File?](/blog/post/what-is-heic) — format deep dive
+- [How to Convert HEIC to JPG on iPhone](/blog/post/convert-heic-to-jpg-iphone) — on-device conversion
+- [iPhone Photo Storage Guide](/blog/post/iphone-photo-storage-guide) — manage HEIC storage efficiently

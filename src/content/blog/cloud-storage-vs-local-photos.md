@@ -69,3 +69,9 @@ The most dangerous setup: all photos on one phone with no backup. Phones get los
 The second most dangerous: all photos in one cloud account. Accounts get hacked, locked, or terminated.
 
 **Always maintain at least one local AND one cloud backup.**
+
+## Further Reading
+
+- [iPhone Photo Storage Guide](/blog/post/iphone-photo-storage-guide) — practical storage management
+- [Convert HEIC Without Uploading](/blog/post/heic-no-upload-privacy) — privacy-first photo handling
+- [Why Are iPhone Photos HEIC?](/blog/post/why-are-iphone-photos-heic) — format implications for storage

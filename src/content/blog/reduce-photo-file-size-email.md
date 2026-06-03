@@ -82,3 +82,9 @@ Attach single ZIP file to email
 ```
 
 This typically shrinks a 40 MB set of photos to a 3-5 MB ZIP, well under any attachment limit.
+
+## Further Reading
+
+- [Compress JPEG Without Losing Quality](/blog/post/compress-jpeg-without-losing-quality) — compression techniques
+- [Batch Convert HEIC to JPG](/blog/post/batch-convert-heic) — process multiple files at once
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert before compressing

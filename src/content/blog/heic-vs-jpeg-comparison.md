@@ -50,3 +50,9 @@ HEIC supports 16-bit color depth, while JPEG is limited to 8-bit. This matters f
 ## Converting without quality loss
 
 Use [heicgo.com](/) to convert HEIC to JPEG at 100% quality. The output will be visually identical to the original, and your EXIF data stays intact.
+
+## Further Reading
+
+- [What Is a HEIC File?](/blog/post/what-is-heic) — deep dive into the format
+- [Does Converting HEIC to JPG Lose Quality?](/blog/post/heic-quality-loss-myth) — quality implications explained
+- [JPEG vs PNG vs HEIC vs WebP](/blog/post/image-format-comparison-jpeg-png-heic-webp) — compare all four formats

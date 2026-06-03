@@ -45,3 +45,9 @@ The biggest dividing line is **upload vs client-side**. CloudConvert and similar
 ## Recommendation
 
 For most users: **[heicgo.com](/) — free, private, and preserves EXIF.**
+
+## Further Reading
+
+- [Free HEIC Converters With No Watermark](/blog/post/free-heic-converter-no-watermark) — tools that don't brand your photos
+- [5 Best Free Online Image Editing Tools](/blog/post/free-online-image-editing-tools) — edit images without installing software
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — our recommended method

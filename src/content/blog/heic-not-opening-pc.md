@@ -65,3 +65,9 @@ This is a rare cause but worth checking if other methods fail.
 On iPhone: Settings → Camera → Formats → "Most Compatible"
 
 This makes all future photos JPEG — no conversion needed.
+
+## Further Reading
+
+- [Open HEIC Files on Windows](/blog/post/open-heic-files-windows) — complete Windows guide
+- [HEIC Photos Dark on Windows?](/blog/post/heic-dark-windows-fix) — color display fix
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert to universally compatible JPEG

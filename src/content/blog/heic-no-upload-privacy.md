@@ -61,3 +61,9 @@ The conversion uses WebAssembly (WASM) — a binary format that runs at near-nat
 - Avoid converters that ask you to create an account
 - Be suspicious of "free" converters with no visible business model (they may sell data)
 - Use [heicgo.com](/) — it's ad-supported, so your data was never the product
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — the privacy-first converter
+- [Cloud Storage vs Local Storage for Photos](/blog/post/cloud-storage-vs-local-photos) — where to keep your converted files
+- [Preserve EXIF Data When Converting HEIC](/blog/post/preserve-exif-heic-conversion) — metadata privacy considerations

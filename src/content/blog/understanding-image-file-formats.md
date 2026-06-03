@@ -87,3 +87,9 @@ Unlike all the above (raster/pixel formats), SVG stores mathematical shapes. It 
 | Animate something short | GIF or WebP |
 
 For iPhone users, the most common workflow: shoot in HEIC (saves space) → convert to JPEG with [heicgo.com](/) when sharing (universal compatibility with EXIF preserved).
+
+## Further Reading
+
+- [JPEG vs PNG vs HEIC vs WebP](/blog/post/image-format-comparison-jpeg-png-heic-webp) — detailed four-way comparison
+- [What Is a HEIC File?](/blog/post/what-is-heic) — focus on Apple's format
+- [HEIC to PNG Conversion](/blog/post/heic-to-png-conversion) — practical format conversion

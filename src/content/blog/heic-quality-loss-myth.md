@@ -50,3 +50,9 @@ The bigger issue isn't pixel quality — it's metadata loss. Most converters str
 - Orientation
 
 Use [heicgo.com](/) to convert — it's the only free web tool that preserves EXIF metadata.
+
+## Further Reading
+
+- [HEIC vs JPEG Comparison](/blog/post/heic-vs-jpeg-comparison) — format quality deep dive
+- [Compress JPEG Without Losing Quality](/blog/post/compress-jpeg-without-losing-quality) — compression best practices
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert at optimal quality

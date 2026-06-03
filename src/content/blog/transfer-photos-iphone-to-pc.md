@@ -70,3 +70,9 @@ This gives you universally compatible JPEGs with EXIF metadata intact, in a sing
 | Import hangs on "large" file | Use USB 3.0 port, close other apps |
 | iCloud Photos not syncing | Check iCloud storage isn't full |
 | Slow wireless transfer | Use USB cable for > 50 photos |
+
+## Further Reading
+
+- [Open HEIC Files on Windows](/blog/post/open-heic-files-windows) — view transferred photos on PC
+- [HEIC Photos Dark on Windows?](/blog/post/heic-dark-windows-fix) — fix display after transfer
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert your transferred files

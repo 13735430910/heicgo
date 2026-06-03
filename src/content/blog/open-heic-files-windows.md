@@ -40,3 +40,9 @@ If your HEIC photos appear dark or washed out, it's a color profile issue. Windo
 **Is the Microsoft codec really free?** The basic extension is free. There's a paid HEVC Video Extensions ($0.99) for video support, but the image codec is free.
 
 **Can I batch convert?** Yes — heicgo supports dragging multiple files at once.
+
+## Further Reading
+
+- [HEIC Photos Dark on Windows?](/blog/post/heic-dark-windows-fix) — fix color profile issues
+- [HEIC Files Not Opening on PC?](/blog/post/heic-not-opening-pc) — troubleshooting guide
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert for full compatibility

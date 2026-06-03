@@ -12,6 +12,43 @@ export function getStaticPaths() {
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
 const path = Astro.url.pathname;
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: t.seo.homeTitle,
+  description: t.seo.homeDescription,
+  totalTime: "PT30S",
+  tool: [
+    { "@type": "HowToTool", name: "Web browser (Chrome, Safari, Firefox, or Edge)" },
+  ],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Upload HEIC files",
+      text: "Drag and drop your HEIC or HEIF files onto the converter area, or click Browse to select files from your device. All processing is local — files never leave your device.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Adjust conversion settings",
+      text: "Use the quality slider to balance file size and image quality (92% recommended). Optionally set a maximum width to resize images. Enable EXIF preservation to keep GPS, camera data, and timestamps.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Convert to JPEG",
+      text: "Click the Convert to JPG button. The HEIC file is decoded in your browser using WebAssembly or Safari's native decoder, processed through Canvas, and encoded as JPEG. EXIF metadata is re-injected into the output file.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Download converted files",
+      text: "Download individual JPEG files or use the Download All (ZIP) button to get all converted files in a single archive. Files are ready to use on any device or platform.",
+    },
+  ],
+};
 ---
 
 <BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path}>
@@ -94,4 +131,6 @@ const path = Astro.url.pathname;
       <dd class="ml-0">Yes. heicgo works on Safari for iPhone and Chrome for Android. The interface is fully responsive and touch-friendly.</dd>
     </dl>
   </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
 </BaseLayout>

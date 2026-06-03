@@ -58,3 +58,9 @@ iOS doesn't have a built-in duplicate finder, but:
 5. Keep only the last 6 months on your phone
 
 You'll recover 30-100+ GB depending on your library size, have a permanent offline backup, and keep recent photos accessible.
+
+## Further Reading
+
+- [Cloud Storage vs Local Storage for Photos](/blog/post/cloud-storage-vs-local-photos) — detailed storage comparison
+- [Why Are iPhone Photos HEIC?](/blog/post/why-are-iphone-photos-heic) — why HEIC affects storage
+- [Batch Convert HEIC to JPG](/blog/post/batch-convert-heic) — archive photos to save space

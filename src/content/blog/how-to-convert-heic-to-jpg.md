@@ -61,3 +61,9 @@ When you convert with heicgo.com, all of this is preserved. Other free converter
 **Does it work on mobile?** Yes, heicgo works on Safari and Chrome on iPhone and Android.
 
 **Is it really free?** Yes. The site is supported by ads.
+
+## Further Reading
+
+- [What Is a HEIC File?](/blog/post/what-is-heic) — understand the format before converting
+- [Preserve EXIF Data When Converting HEIC](/blog/post/preserve-exif-heic-conversion) — keep GPS and camera metadata
+- [Batch Convert HEIC to JPG](/blog/post/batch-convert-heic) — convert multiple files at once

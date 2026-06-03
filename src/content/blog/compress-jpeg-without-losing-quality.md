@@ -66,3 +66,9 @@ For compressing hundreds of photos:
 - **Don't re-compress JPEGs repeatedly** — each re-compression adds artifacts (generational loss). Always compress from the original.
 - **Don't use PNG for photos** — a PNG of a photo is 5-10× larger than JPEG with no quality benefit.
 - **Don't set quality below 60%** — visible blocking and color banding appear.
+
+## Further Reading
+
+- [Does Converting HEIC to JPG Lose Quality?](/blog/post/heic-quality-loss-myth) — quality considerations
+- [Reduce Photo File Size for Email](/blog/post/reduce-photo-file-size-email) — practical compression use case
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert + compress in one step

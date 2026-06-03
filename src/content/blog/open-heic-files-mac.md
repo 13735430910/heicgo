@@ -64,3 +64,9 @@ Right-click any HEIC file → Quick Actions → Convert to JPEG.
 | Photos | Yes | No | Medium |
 | heicgo.com | Yes | Yes | Fast (Safari native) |
 | Automator | Yes | No | Medium |
+
+## Further Reading
+
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — works on Mac Safari too
+- [Transfer Photos from iPhone to PC](/blog/post/transfer-photos-iphone-to-pc) — cross-platform workflow
+- [HEIC to PNG Conversion](/blog/post/heic-to-png-conversion) — when to choose PNG over JPEG

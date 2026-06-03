@@ -57,3 +57,9 @@ Converting a 12 MP iPhone photo:
 **Convert HEIC → PNG** only when you specifically need lossless quality, transparency, or are working with text-heavy screenshots.
 
 For HEIC → JPEG conversion with EXIF preservation, use [heicgo.com](/) — it's free, private, and requires no upload.
+
+## Further Reading
+
+- [HEIC vs JPEG Comparison](/blog/post/heic-vs-jpeg-comparison) — JPEG vs HEIC quality
+- [Understanding Image File Formats](/blog/post/understanding-image-file-formats) — when each format shines
+- [JPEG vs PNG vs HEIC vs WebP](/blog/post/image-format-comparison-jpeg-png-heic-webp) — all four compared

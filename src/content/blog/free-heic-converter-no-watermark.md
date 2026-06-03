@@ -55,3 +55,9 @@ heicgo processes everything in your browser using WebAssembly. There's no server
 Upload-based converters (even watermark-free ones) have another cost: your data. Your photos sit on their servers during conversion. Client-side converters like heicgo keep everything local.
 
 [Try heicgo.com](/) — free, no watermark, no upload.
+
+## Further Reading
+
+- [Best Free HEIC Converters Compared](/blog/post/free-heic-converters-comparison) — full comparison table
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — watermark-free conversion method
+- [Free Online Image Editing Tools](/blog/post/free-online-image-editing-tools) — complementary free tools

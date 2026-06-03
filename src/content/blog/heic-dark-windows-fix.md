@@ -64,3 +64,9 @@ If ALL photos (not just HEIC) look dark:
 On iPhone: Settings → Camera → Formats → "Most Compatible"
 
 This captures photos in JPEG with sRGB color profile — fully compatible with Windows.
+
+## Further Reading
+
+- [Open HEIC Files on Windows](/blog/post/open-heic-files-windows) — Windows compatibility guide
+- [How to Convert HEIC to JPG](/blog/post/how-to-convert-heic-to-jpg) — convert to fix color permanently
+- [Understanding Image File Formats](/blog/post/understanding-image-file-formats) — learn about color profiles

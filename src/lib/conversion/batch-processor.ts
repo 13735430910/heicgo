@@ -75,11 +75,16 @@ export async function convertSingleFile(
 
   // Build result
   const nameWithoutExt = file.name.replace(/\.(heic|heif)$/i, "");
-  const exifSummary = hasExif
-    ? buildExifSummary(
+  let exifSummary = null;
+  if (hasExif) {
+    try {
+      exifSummary = buildExifSummary(
         exifData as unknown as import("./exif-extractor").ExifData
-      )
-    : null;
+      );
+    } catch {
+      exifSummary = "EXIF data preserved";
+    }
+  }
 
   onProgress(id, 100);
 

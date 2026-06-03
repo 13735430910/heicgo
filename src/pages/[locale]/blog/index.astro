@@ -15,31 +15,81 @@ const path = Astro.url.pathname;
 
 const posts = await getCollection("blog");
 posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const categories = [
+  { slug: "conversion", label: "Conversion Guides", keywords: ["heic", "conversion", "batch", "quality"] },
+  { slug: "platform", label: "Platform Guides", keywords: ["windows", "mac", "iphone", "ios", "transfer"] },
+  { slug: "formats", label: "Format Explained", keywords: ["formats", "jpeg", "png", "webp", "explainer", "comparison"] },
+  { slug: "tips", label: "Tips & Optimization", keywords: ["storage", "compression", "management", "email", "tutorial"] },
+  { slug: "tools", label: "Privacy & Tools", keywords: ["privacy", "security", "tools", "free", "converters"] },
+];
+
+function matchCat(postTags: string[] | undefined, keywords: string[]) {
+  if (!postTags) return false;
+  return keywords.some((kw) => postTags.includes(kw));
+}
+
+const dateLocale = locale === "zh-CN" ? "zh-CN" : "en-US";
+const dateOpts = { year: "numeric", month: "short", day: "numeric" };
 ---
 
 <BaseLayout locale={locale} title={t.seo.blogTitle} description={t.seo.blogDescription} path={path} type="website">
   <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold text-text mb-8">Blog</h1>
-    <div class="space-y-8">
-      {posts.map((p) => (
-        <article class="border-b border-border pb-8">
-          <a href={`/${locale}/blog/post/${p.id}`} class="no-underline">
-            <h2 class="text-xl font-semibold text-text hover:text-primary transition-colors mb-2">
-              {p.data.title}
-            </h2>
-          </a>
-          <p class="text-text-secondary mb-3">{p.data.description}</p>
-          <div class="flex items-center gap-3 text-sm text-text-muted">
-            <time datetime={p.data.publishDate.toISOString()}>
-              {p.data.publishDate.toLocaleDateString(locale === "zh-CN" ? "zh-CN" : "en-US", { dateStyle: "medium" })}
-            </time>
-            {p.data.tags?.map((tag) => (
-              <span class="bg-gray-100 px-2 py-0.5 rounded text-xs">{tag}</span>
+    <h1 class="text-3xl font-bold text-text mb-2">Blog</h1>
+    <p class="text-text-secondary mb-8">
+      Guides, tutorials, and tips about HEIC conversion, image formats, and photo management.
+    </p>
+
+    <nav class="flex flex-wrap gap-2 mb-10" aria-label="Blog categories">
+      <a href="?category=all" data-category="all"
+         class="category-tab px-4 py-1.5 rounded-full text-sm font-medium border bg-primary text-white border-primary no-underline">
+        All Posts
+      </a>
+      {categories.map((cat) => (
+        <a href={`?category=${cat.slug}`} data-category={cat.slug}
+           class="category-tab px-4 py-1.5 rounded-full text-sm font-medium border border-border text-text-secondary hover:bg-gray-50 hover:text-text transition-colors no-underline">
+          {cat.label}
+        </a>
+      ))}
+    </nav>
+
+    {categories.map((cat) => {
+      const catPosts = posts.filter((p) => matchCat(p.data.tags, cat.keywords));
+      if (catPosts.length === 0) return null;
+      return (
+        <section class="mb-12" data-category-section={cat.slug}>
+          <div class="flex items-center gap-3 mb-6">
+            <h2 class="text-lg font-semibold text-text">{cat.label}</h2>
+            <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded-full">{catPosts.length} posts</span>
+          </div>
+          <div class="space-y-6">
+            {catPosts.map((p) => (
+              <article class="border-b border-border pb-6 last:border-0">
+                <a href={`/${locale}/blog/post/${p.id}`} class="no-underline group block">
+                  <h3 class="text-lg font-semibold text-text group-hover:text-primary transition-colors mb-1.5">
+                    {p.data.title}
+                  </h3>
+                  <p class="text-text-secondary text-sm mb-2 leading-relaxed">
+                    {p.data.description}
+                  </p>
+                </a>
+                <div class="flex items-center gap-3 text-xs text-text-muted">
+                  <time datetime={p.data.publishDate.toISOString()}>
+                    {p.data.publishDate.toLocaleDateString(dateLocale, dateOpts as any)}
+                  </time>
+                  {p.data.tags?.slice(0, 3).map((tag) => (
+                    <span class="bg-gray-100 px-2 py-0.5 rounded">{tag}</span>
+                  ))}
+                </div>
+              </article>
             ))}
           </div>
-        </article>
-      ))}
-    </div>
+        </section>
+      );
+    })}
   </div>
+
   <AdBanner />
 </BaseLayout>
+
+<script src="/js/blog-filter.js" defer></script>

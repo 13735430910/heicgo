@@ -4,8 +4,9 @@ export const SITE = {
   tagline: "Free HEIC to JPG Converter",
 };
 
+// Replace with your actual AdSense publisher ID after approval
 export const ADSENSE = {
-  clientId: "ca-pub-XXXXXXXXXXXXXX",
+  publisherId: "ca-pub-XXXXXXXXXXXXXX",
   slots: {
     converterTop: "",
     converterBottom: "",
@@ -17,8 +18,7 @@ export const ADSENSE = {
 export const CONVERSION = {
   maxFileSize: 50 * 1024 * 1024, // 50MB
   supportedFormats: [".heic", ".heif"],
-  supportedMimeTypes: ["image/heic", "image/heif", "image/heic-sequence"],
   defaultQuality: 0.92,
   defaultMaxWidth: 0, // 0 = original
-  maxConcurrent: 4, // parallel conversions
+  maxConcurrent: 4,
 };

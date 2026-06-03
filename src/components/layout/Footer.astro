@@ -1,14 +1,13 @@
 ---
 import type { Locale } from "../../i18n/translations";
-import en from "../../i18n/locales/en";
-import zhCN from "../../i18n/locales/zh-CN";
+import { getTranslation } from "../../i18n/ui";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const t = locale === "zh-CN" ? zhCN : en;
+const t = getTranslation(locale);
 ---
 
 <footer class="border-t border-border bg-white mt-auto">

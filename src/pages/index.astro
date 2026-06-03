@@ -1,5 +1,5 @@
 ---
-// Root redirect: detect browser language and redirect to /en/ or /zh-CN/
+// Root redirect: detect browser language and redirect
 ---
 
 <!doctype html>
@@ -11,8 +11,14 @@
     <title>heicgo — HEIC to JPG Converter</title>
     <script>
       (function() {
-        var lang = navigator.language || '';
-        var target = lang.startsWith('zh') ? '/zh-CN/' : '/en/';
+        var lang = (navigator.language || '').toLowerCase();
+        var target;
+        if (lang.startsWith('zh')) target = '/zh-CN/';
+        else if (lang.startsWith('de')) target = '/de/';
+        else if (lang.startsWith('ja')) target = '/ja/';
+        else if (lang.startsWith('ko')) target = '/ko/';
+        else if (lang.startsWith('fr')) target = '/fr/';
+        else target = '/en/';
         window.location.replace(target + window.location.search + window.location.hash);
       })();
     </script>

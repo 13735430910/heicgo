@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # wrangler
 .wrangler/
+.playwright-mcp/
+*.png
+test-files/

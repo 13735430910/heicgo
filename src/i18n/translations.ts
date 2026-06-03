@@ -68,4 +68,10 @@ export interface Translation {
   };
 }
 
-export type Locale = "en" | "zh-CN";
+export type Locale = "en" | "zh-CN" | "de" | "ja" | "ko" | "fr";
+
+/** Locales that get full content pages including blog */
+export const FULL_LOCALES: Locale[] = ["en", "zh-CN"];
+
+/** All supported locales for UI */
+export const ALL_LOCALES: Locale[] = ["en", "zh-CN", "de", "ja", "ko", "fr"];

@@ -2,16 +2,15 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../components/ads/AdBanner.astro";
-import en from "../../../i18n/locales/en";
-import zhCN from "../../../i18n/locales/zh-CN";
-import { getLocaleFromParams } from "../../../i18n/ui";
+import { getLocaleFromParams, getTranslation } from "../../../i18n/ui";
+import { FULL_LOCALES } from "../../../i18n/translations";
 
 export function getStaticPaths() {
-  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+  return FULL_LOCALES.map((locale) => ({ params: { locale } }));
 }
 
 const locale = getLocaleFromParams(Astro.params);
-const t = locale === "zh-CN" ? zhCN : en;
+const t = getTranslation(locale);
 const path = Astro.url.pathname;
 
 const posts = await getCollection("blog");

@@ -1,13 +1,30 @@
-import type { Locale } from "./translations";
+import type { Locale, Translation } from "./translations";
+import { ALL_LOCALES } from "./translations";
+import en from "./locales/en";
+import zhCN from "./locales/zh-CN";
+import de from "./locales/de";
+import ja from "./locales/ja";
+import ko from "./locales/ko";
+import fr from "./locales/fr";
 
-export const SUPPORTED_LOCALES: Locale[] = ["en", "zh-CN"];
+const translations: Record<Locale, Translation> = { en, "zh-CN": zhCN, de, ja, ko, fr };
+
+export const localeLabels: Record<Locale, string> = {
+  en: "English",
+  "zh-CN": "中文",
+  de: "Deutsch",
+  ja: "日本語",
+  ko: "한국어",
+  fr: "Français",
+};
+
 const LOCALE_STORAGE_KEY = "heicgo-locale";
 
 export function isValidLocale(s: string): s is Locale {
-  return SUPPORTED_LOCALES.includes(s as Locale);
+  return ALL_LOCALES.includes(s as Locale);
 }
 
-/** Server-side: get locale from Astro.params (used in [locale] routes) */
+/** Server-side: get locale from Astro.params */
 export function getLocaleFromParams(params: Record<string, string | undefined>): Locale {
   const locale = params.locale;
   return locale && isValidLocale(locale) ? locale : "en";
@@ -19,7 +36,12 @@ export function getLocaleFromUrl(url: URL): Locale {
   return isValidLocale(pathLocale) ? pathLocale : "en";
 }
 
-/** Client-side: detect locale from browser, saved preference, or default */
+/** Load translation object for a given locale */
+export function getTranslation(locale: Locale): Translation {
+  return translations[locale] || translations.en;
+}
+
+/** Client-side: detect locale from browser */
 export function detectLocale(): Locale {
   try {
     const saved = localStorage?.getItem(LOCALE_STORAGE_KEY);
@@ -27,14 +49,18 @@ export function detectLocale(): Locale {
   } catch {}
 
   try {
-    const browserLang = navigator.language;
-    if (browserLang.startsWith("zh")) return "zh-CN";
+    const lang = navigator.language;
+    if (lang.startsWith("zh")) return "zh-CN";
+    if (lang.startsWith("de")) return "de";
+    if (lang.startsWith("ja")) return "ja";
+    if (lang.startsWith("ko")) return "ko";
+    if (lang.startsWith("fr")) return "fr";
   } catch {}
 
   return "en";
 }
 
-/** Client-side: save user's locale preference */
+/** Client-side: save locale preference */
 export function saveLocalePreference(locale: Locale): void {
   try {
     localStorage?.setItem(LOCALE_STORAGE_KEY, locale);

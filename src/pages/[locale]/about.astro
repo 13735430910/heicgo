@@ -1,15 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import en from "../../i18n/locales/en";
-import zhCN from "../../i18n/locales/zh-CN";
-import { getLocaleFromParams } from "../../i18n/ui";
+import { getLocaleFromParams, getTranslation } from "../../i18n/ui";
+import { ALL_LOCALES } from "../../i18n/translations";
 
 export function getStaticPaths() {
-  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+  return ALL_LOCALES.map((locale) => ({ params: { locale } }));
 }
 
 const locale = getLocaleFromParams(Astro.params);
-const t = locale === "zh-CN" ? zhCN : en;
+const t = getTranslation(locale);
 const path = Astro.url.pathname;
 ---
 
@@ -33,7 +32,7 @@ const path = Astro.url.pathname;
     <h2>Why heicgo is Different</h2>
     <ul>
       <li><strong>Privacy-first</strong> — files never leave your device</li>
-      <li><strong>EXIF preservation</strong> — we're the only WASM-based converter that keeps GPS and camera metadata</li>
+      <li><strong>EXIF preservation</strong> — the only WASM-based converter that keeps GPS and camera metadata</li>
       <li><strong>Free with no limits</strong> — supported by ads, not user fees</li>
       <li><strong>No registration</strong> — start converting immediately</li>
     </ul>
@@ -50,7 +49,7 @@ const path = Astro.url.pathname;
       <li><strong>Frontend:</strong> Astro, Preact, Tailwind CSS</li>
       <li><strong>HEIC Decoding:</strong> heic2any (WebAssembly) + Safari native</li>
       <li><strong>EXIF:</strong> exifr + piexifjs</li>
-      <li><strong>Hosting:</strong> Cloudflare Pages</li>
+      <li><strong>Hosting:</strong> Cloudflare</li>
     </ul>
 
     <h2>Contact</h2>

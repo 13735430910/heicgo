@@ -1,8 +1,10 @@
 ---
 import type { Locale } from "../i18n/translations";
+import { ALL_LOCALES } from "../i18n/translations";
 import SEO from "../components/layout/SEO.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import { ADSENSE } from "../config";
 import "../styles/global.css";
 
 interface Props {
@@ -15,17 +17,33 @@ interface Props {
 }
 
 const { locale, title, description, path, type, image } = Astro.props;
+const localeBCP = locale === "zh-CN" ? "zh-Hans" : locale;
+const strippedPath = path.replace(/^\/(en|zh-CN|de|ja|ko|fr)/, "") || "/";
 ---
 
 <!doctype html>
-<html lang={locale === "zh-CN" ? "zh-Hans" : locale}>
+<html lang={localeBCP}>
   <head>
     <meta charset="utf-8" />
     <SEO {title} {description} {locale} {path} {type} {image} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" hreflang="en" href={new URL("/en" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
-    <link rel="alternate" hreflang="zh-CN" href={new URL("/zh-CN" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL("/en" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
+    {ALL_LOCALES.map((l) => {
+      const altBCP = l === "zh-CN" ? "zh-Hans" : l;
+      return <link rel="alternate" hreflang={altBCP} href={new URL("/" + l + strippedPath, Astro.site).href} />;
+    })}
+    <link rel="alternate" hreflang="x-default" href={new URL("/en" + strippedPath, Astro.site).href} />
+
+    <!-- Google AdSense Auto Ads -->
+    {!ADSENSE.publisherId.includes("XXXX") && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.publisherId}`}
+        crossorigin="anonymous"
+      ></script>
+    )}
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "heicgo_analytics"}`}></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header {locale} currentPath={path} />

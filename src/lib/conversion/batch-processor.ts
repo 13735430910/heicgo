@@ -50,7 +50,7 @@ export async function convertSingleFile(
 
   // 3+4. Process image + encode to JPEG
   onProgress(id, 60);
-  const { blob, width, height } = processImage(decodeResult, options);
+  const { blob, width, height } = await processImage(decodeResult, options);
   onProgress(id, 80);
 
   // 5. Inject EXIF into JPEG
@@ -64,7 +64,7 @@ export async function convertSingleFile(
       );
       finalBlob = new Blob([injected], { type: "image/jpeg" });
     } catch {
-      // Non-fatal: use JPEG without EXIF
+      finalBlob = blob;
     }
   }
   onProgress(id, 95);

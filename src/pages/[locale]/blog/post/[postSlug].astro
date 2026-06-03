@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../../components/ads/AdBanner.astro";
 import AuthorBio from "../../../../components/blog/AuthorBio.astro";
+import RelatedPosts from "../../../../components/blog/RelatedPosts.astro";
 import { getLocaleFromParams } from "../../../../i18n/ui";
 import { ALL_LOCALES, FULL_LOCALES } from "../../../../i18n/translations";
 import { getBlogTranslation } from "../../../../i18n/blog-translations";
@@ -23,31 +24,78 @@ const { Content } = await render(post);
 const locale = getLocaleFromParams(Astro.params);
 const path = Astro.url.pathname;
 
-// Small languages: use translated title/desc, canonical to /en/
 const isFullLocale = FULL_LOCALES.includes(locale);
 const seoPath = isFullLocale ? path : path.replace(`/${locale}/`, "/en/");
 const blogTrans = !isFullLocale ? getBlogTranslation(locale, Astro.params.postSlug || "") : null;
 const displayTitle = blogTrans?.title || post.data.title;
 const displayDesc = blogTrans?.description || post.data.description;
+
+// Load all posts for related posts calculation
+const allPosts = await getCollection("blog");
+
+// Article structured data
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: displayTitle,
+  description: displayDesc,
+  datePublished: post.data.publishDate.toISOString(),
+  dateModified: (post.data.updatedDate || post.data.publishDate).toISOString(),
+  author: { "@type": "Organization", name: "heicgo Editorial Team", url: "https://heicgo.com/en/about" },
+  publisher: { "@type": "Organization", name: "heicgo", url: "https://heicgo.com" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": new URL(seoPath, Astro.site).href },
+};
+
+// Breadcrumb structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${Astro.site}${locale}/` },
+    { "@type": "ListItem", position: 2, name: "Blog", item: `${Astro.site}${locale}/blog/` },
+    { "@type": "ListItem", position: 3, name: displayTitle },
+  ],
+};
+
+const dateLocale = locale === "zh-CN" ? "zh-CN" : "en-US";
+const dateOpts: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
 ---
 
 <BaseLayout locale={locale} title={displayTitle} description={displayDesc} path={seoPath} type="article">
   <article class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-text-muted mb-6" aria-label="Breadcrumb">
+      <a href={`/${locale}`} class="hover:text-text transition-colors">Home</a>
+      <span>/</span>
+      <a href={`/${locale}/blog`} class="hover:text-text transition-colors">Blog</a>
+      <span>/</span>
+      <span class="text-text">{displayTitle}</span>
+    </nav>
+
     <header class="mb-8">
       <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">{displayTitle}</h1>
-      <div class="flex items-center gap-3 text-sm text-text-muted">
+      <div class="flex flex-wrap items-center gap-3 text-sm text-text-muted">
         <time datetime={post.data.publishDate.toISOString()}>
-          {post.data.publishDate.toLocaleDateString(locale === "zh-CN" ? "zh-CN" : "en-US", { dateStyle: "medium" })}
+          {post.data.publishDate.toLocaleDateString(dateLocale, dateOpts)}
         </time>
         {post.data.tags?.map((tag) => (
           <span class="bg-gray-100 px-2 py-0.5 rounded text-xs">{tag}</span>
         ))}
       </div>
     </header>
+
     <div class="prose prose-slate max-w-none max-w-3xl prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
       <Content />
     </div>
+
     <AuthorBio date={post.data.publishDate} />
+
+    <!-- Related Posts (internal linking for SEO) -->
+    <RelatedPosts current={post} allPosts={allPosts} locale={locale} />
   </article>
+
   <AdBanner />
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 </BaseLayout>

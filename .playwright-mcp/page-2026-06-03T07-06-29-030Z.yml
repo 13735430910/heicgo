@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "heicgo" [ref=e4] [cursor=pointer]:
+        - /url: /zh-CN
+        - img [ref=e5]
+        - generic [ref=e9]: heicgo
+      - navigation "Main navigation" [ref=e10]:
+        - link "首页" [ref=e11] [cursor=pointer]:
+          - /url: /zh-CN
+        - link "博客" [ref=e12] [cursor=pointer]:
+          - /url: /zh-CN/blog
+        - link "常见问题" [ref=e13] [cursor=pointer]:
+          - /url: /zh-CN/faq
+        - link "关于" [ref=e14] [cursor=pointer]:
+          - /url: /zh-CN/about
+      - link "Switch to English" [ref=e15] [cursor=pointer]:
+        - /url: /en
+        - text: English
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - heading "HEIC 转 JPG 转换器" [level=1] [ref=e18]
+      - paragraph [ref=e19]: 免费 · 私密 · 无需上传
+    - generic [ref=e20]:
+      - text: Advertisement
+      - generic [ref=e21]: Advertisement
+    - generic [ref=e25] [cursor=pointer]:
+      - img [ref=e26]
+      - paragraph [ref=e29]: 将 HEIC 文件拖到此处
+      - paragraph [ref=e30]: 支持 HEIC、HEIF 格式 · 单文件最大 50MB
+      - generic [ref=e31]: 选择文件
+    - generic [ref=e32]:
+      - text: Advertisement
+      - generic [ref=e33]: Advertisement
+  - contentinfo [ref=e34]:
+    - generic [ref=e36]:
+      - paragraph [ref=e37]: heicgo.com — 免费在线 HEIC 转 JPG 转换器。
+      - navigation "Footer links" [ref=e38]:
+        - link "隐私政策" [ref=e39] [cursor=pointer]:
+          - /url: /zh-CN/privacy
+        - link "使用条款" [ref=e40] [cursor=pointer]:
+          - /url: /zh-CN/terms
+        - link "关于" [ref=e41] [cursor=pointer]:
+          - /url: /zh-CN/about

@@ -54,17 +54,18 @@ export async function convertSingleFile(
   onProgress(id, 80);
 
   // 5. Inject EXIF into JPEG
-  let finalBlob = blob;
+  // Read once, then create the final blob — avoids consumed-blob issues
+  const jpegBuffer = await blob.arrayBuffer();
+  let finalBlob = new Blob([jpegBuffer], { type: "image/jpeg" });
   if (options.preserveExif && hasExif) {
     try {
-      const jpegBuffer = await blob.arrayBuffer();
       const injected = injectExifIntoJpeg(
         jpegBuffer,
         exifData as unknown as import("./exif-extractor").ExifData
       );
       finalBlob = new Blob([injected], { type: "image/jpeg" });
     } catch {
-      finalBlob = blob;
+      // Fallback: use raw JPEG without EXIF (jpegBuffer already used above)
     }
   }
   onProgress(id, 95);

@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "heicgo" [ref=e4] [cursor=pointer]:
+        - /url: /en
+        - img [ref=e5]
+        - generic [ref=e9]: heicgo
+      - navigation "Main navigation" [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: /en
+        - link "Blog" [ref=e12] [cursor=pointer]:
+          - /url: /en/blog
+        - link "FAQ" [ref=e13] [cursor=pointer]:
+          - /url: /en/faq
+        - link "About" [ref=e14] [cursor=pointer]:
+          - /url: /en/about
+      - link "Switch to 中文" [ref=e15] [cursor=pointer]:
+        - /url: /zh-CN
+        - text: 中文
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - heading "HEIC to JPG Converter" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Free · Private · No Upload Required
+    - generic [ref=e20]:
+      - text: Advertisement
+      - generic [ref=e21]: Advertisement
+    - generic [ref=e25] [cursor=pointer]:
+      - img [ref=e26]
+      - paragraph [ref=e29]: Drop HEIC files here
+      - paragraph [ref=e30]: Supports HEIC, HEIF · Max 50MB per file
+      - generic [ref=e31]: Browse files
+    - generic [ref=e32]:
+      - text: Advertisement
+      - generic [ref=e33]: Advertisement
+  - contentinfo [ref=e34]:
+    - generic [ref=e36]:
+      - paragraph [ref=e37]: heicgo.com — Free online HEIC to JPG converter.
+      - navigation "Footer links" [ref=e38]:
+        - link "Privacy Policy" [ref=e39] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=e40] [cursor=pointer]:
+          - /url: /en/terms
+        - link "About" [ref=e41] [cursor=pointer]:
+          - /url: /en/about

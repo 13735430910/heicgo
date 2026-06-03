@@ -27,4 +27,71 @@ const path = Astro.url.pathname;
   </section>
 
   <AdBanner />
+
+  <!-- SEO Content Section — required for AdSense content quality review -->
+  <section class="max-w-3xl mx-auto px-4 pb-16 prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary">
+    <h2>Free HEIC to JPG Converter — No Upload Required</h2>
+    <p>
+      <strong>heicgo.com</strong> is a free online tool that converts HEIC photos to JPEG format
+      directly in your browser. Unlike other converters, heicgo <strong>never uploads your files</strong>
+      to a server — all processing happens locally on your device using WebAssembly technology.
+      This means your photos stay private, and you can convert as many files as you want with
+      no limits, no registration, and no watermark.
+    </p>
+
+    <h3>Why Choose heicgo?</h3>
+    <ul>
+      <li><strong>100% Private</strong> — Files never leave your device. No upload, no server processing.</li>
+      <li><strong>EXIF Data Preserved</strong> — GPS location, date taken, camera model, and orientation stay intact. heicgo is the only web-based HEIC converter that preserves EXIF metadata.</li>
+      <li><strong>Batch Conversion</strong> — Convert multiple HEIC files at once. Download them individually or as a single ZIP archive.</li>
+      <li><strong>Safari-Optimized</strong> — On Safari 17+, heicgo uses the browser's native HEIC decoder for conversions up to 39x faster than WebAssembly alone.</li>
+      <li><strong>Quality Control</strong> — Adjust output quality from 10% to 100% to balance file size and image fidelity.</li>
+      <li><strong>Works Everywhere</strong> — Compatible with Chrome, Firefox, Edge, and Safari on desktop and mobile.</li>
+    </ul>
+
+    <h3>What Is a HEIC File?</h3>
+    <p>
+      HEIC (High Efficiency Image Container) is Apple's default photo format since iOS 11.
+      It uses HEVC compression to store images at roughly <strong>half the file size of JPEG</strong>
+      at equivalent quality. While great for saving storage space on your iPhone, HEIC files
+      cause compatibility issues when sharing photos with Windows users, uploading to websites,
+      or using older photo editing software.
+    </p>
+
+    <h3>How Does It Work?</h3>
+    <p>
+      When you drag a HEIC file into heicgo, the conversion happens entirely in your browser:
+    </p>
+    <ol>
+      <li><strong>EXIF Extraction</strong> — Metadata like GPS coordinates, camera settings, and timestamps are extracted from the HEIC file before decoding.</li>
+      <li><strong>HEIC Decoding</strong> — On Safari, the browser's built-in decoder handles HEIC natively. On other browsers, heicgo uses a WebAssembly (WASM) decoder — a sandboxed binary that runs at near-native speed.</li>
+      <li><strong>Canvas Processing</strong> — The decoded image is rendered to an HTML Canvas where optional resizing and rotation are applied.</li>
+      <li><strong>JPEG Encoding</strong> — The canvas is exported as JPEG at your chosen quality setting.</li>
+      <li><strong>EXIF Injection</strong> — The previously extracted metadata is written back into the JPEG file, ensuring GPS, date, and camera information survive the conversion.</li>
+    </ol>
+
+    <h3>Common Use Cases</h3>
+    <ul>
+      <li>Transferring iPhone photos to a Windows PC that can't open HEIC</li>
+      <li>Uploading photos to websites or social media that only accept JPEG</li>
+      <li>Sending photos to a printing service that requires JPEG format</li>
+      <li>Opening HEIC files in older photo editing applications</li>
+      <li>Archiving photos in a universally compatible format while preserving metadata</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <dl>
+      <dt class="font-semibold mt-4">Is heicgo really free?</dt>
+      <dd class="ml-0">Yes. heicgo is completely free with no limits on the number of files or conversions. The site is supported by advertising.</dd>
+
+      <dt class="font-semibold mt-4">Does converting HEIC to JPEG lose quality?</dt>
+      <dd class="ml-0">At 92-100% quality, the visual difference is imperceptible. HEIC is more efficient than JPEG, so the output file may be larger — but the image quality is preserved. See our <a href={`/${locale}/blog/post/heic-quality-loss-myth`}>quality guide</a> for details.</dd>
+
+      <dt class="font-semibold mt-4">What about my privacy?</dt>
+      <dd class="ml-0">heicgo processes everything locally in your browser. Your files are never uploaded to any server. You can verify this by checking your browser's Network tab — no file upload occurs. Read our <a href={`/${locale}/privacy`}>privacy policy</a>.</dd>
+
+      <dt class="font-semibold mt-4">Can I use heicgo on my phone?</dt>
+      <dd class="ml-0">Yes. heicgo works on Safari for iPhone and Chrome for Android. The interface is fully responsive and touch-friendly.</dd>
+    </dl>
+  </section>
 </BaseLayout>

@@ -1,7 +1,7 @@
 ---
 title: "Batch Convert HEIC to JPG: Complete Guide (2025)"
 description: "Learn how to batch convert multiple HEIC photos to JPG at once. Compare free tools that handle bulk conversion with EXIF preservation."
-publishDate: 2025-06-03
+publishDate: 2025-04-07
 tags: ["heic", "batch", "tutorial"]
 ---
 

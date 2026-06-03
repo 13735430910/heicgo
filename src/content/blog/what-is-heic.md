@@ -1,7 +1,7 @@
 ---
 title: "What Is a HEIC File? Everything You Need to Know"
 description: "Learn what HEIC files are, why Apple uses them, and how they compare to JPEG. Complete guide for beginners."
-publishDate: 2025-06-03
+publishDate: 2025-03-10
 tags: ["heic", "format", "guide"]
 ---
 

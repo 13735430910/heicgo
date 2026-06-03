@@ -25,6 +25,10 @@ const strippedPath = path.replace(/^\/(en|zh-CN|de|ja|ko|fr)/, "") || "/";
 <html lang={localeBCP}>
   <head>
     <meta charset="utf-8" />
+    <!-- Preconnect to third-party origins for faster ad + analytics loading -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+    <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
     <SEO {title} {description} {locale} {path} {type} {image} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {ALL_LOCALES.map((l) => {

@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../../components/ads/AdBanner.astro";
+import AuthorBio from "../../../../components/blog/AuthorBio.astro";
 import { getLocaleFromParams } from "../../../../i18n/ui";
 import { FULL_LOCALES } from "../../../../i18n/translations";
 
@@ -38,6 +39,7 @@ const path = Astro.url.pathname;
     <div class="prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
       <Content />
     </div>
+    <AuthorBio date={post.data.publishDate} />
   </article>
   <AdBanner />
 </BaseLayout>

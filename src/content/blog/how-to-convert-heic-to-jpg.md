@@ -1,7 +1,7 @@
 ---
 title: "How to Convert HEIC to JPG (Free, No Upload Required)"
 description: "Learn the fastest way to convert HEIC photos to JPG without uploading files. All processing happens on your device."
-publishDate: 2025-06-03
+publishDate: 2025-03-24
 tags: ["heic", "jpg", "conversion", "tutorial"]
 ---
 

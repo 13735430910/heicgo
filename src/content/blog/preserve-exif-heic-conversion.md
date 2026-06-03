@@ -1,7 +1,7 @@
 ---
 title: "How to Preserve EXIF Data When Converting HEIC to JPG"
 description: "Most HEIC converters strip EXIF metadata like GPS location and date. Learn how to keep this data intact during conversion."
-publishDate: 2025-06-03
+publishDate: 2025-03-31
 tags: ["exif", "heic", "conversion", "privacy"]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "HEIC vs JPEG: Quality, File Size, and Compatibility Compared"
 description: "Side-by-side comparison of HEIC and JPEG formats. See real file size savings and quality differences with sample images."
-publishDate: 2025-06-03
+publishDate: 2025-03-03
 tags: ["heic", "jpeg", "comparison", "quality"]
 ---
 

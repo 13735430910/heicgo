@@ -1,17 +1,23 @@
 ---
-
+// Root redirect: detect browser language and redirect to /en/ or /zh-CN/
 ---
 
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <title>heicgo — HEIC to JPG Converter</title>
+    <script>
+      (function() {
+        var lang = navigator.language || '';
+        var target = lang.startsWith('zh') ? '/zh-CN/' : '/en/';
+        window.location.replace(target + window.location.search + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">heicgo.com/en/</a>...</p>
+  </body>
 </html>

@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import en from "../../i18n/locales/en";
+import zhCN from "../../i18n/locales/zh-CN";
+import { getLocaleFromParams } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+}
+
+const locale = getLocaleFromParams(Astro.params);
+const t = locale === "zh-CN" ? zhCN : en;
+const path = Astro.url.pathname;
+---
+
+<BaseLayout locale={locale} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path}>
+  <div class="max-w-3xl mx-auto px-4 py-12 prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary">
+    <h1>About heicgo</h1>
+
+    <h2>Our Mission</h2>
+    <p>
+      heicgo was built to solve a simple but frustrating problem: iPhone users
+      need to convert HEIC photos to JPEG, but most online converters either
+      upload your files to a server or strip important metadata like GPS location
+      and timestamps.
+    </p>
+    <p>
+      We believe privacy shouldn't be a premium feature. That's why heicgo
+      processes everything locally in your browser — no uploads, no accounts,
+      no tracking.
+    </p>
+
+    <h2>Why heicgo is Different</h2>
+    <ul>
+      <li><strong>Privacy-first</strong> — files never leave your device</li>
+      <li><strong>EXIF preservation</strong> — we're the only WASM-based converter that keeps GPS and camera metadata</li>
+      <li><strong>Free with no limits</strong> — supported by ads, not user fees</li>
+      <li><strong>No registration</strong> — start converting immediately</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <p>
+      heicgo uses <strong>WebAssembly</strong> to decode HEIC files in the browser
+      at near-native speed, combined with the Canvas API for JPEG encoding. On Safari,
+      we use the browser's native HEIC decoder for up to 39x faster conversion.
+    </p>
+
+    <h2>Technology</h2>
+    <ul>
+      <li><strong>Frontend:</strong> Astro, Preact, Tailwind CSS</li>
+      <li><strong>HEIC Decoding:</strong> heic2any (WebAssembly) + Safari native</li>
+      <li><strong>EXIF:</strong> exifr + piexifjs</li>
+      <li><strong>Hosting:</strong> Cloudflare Pages</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <p>Questions or feedback? <a href="mailto:hello@heicgo.com">hello@heicgo.com</a></p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import type { Locale } from "../../i18n/translations";
+import en from "../../i18n/locales/en";
+import zhCN from "../../i18n/locales/zh-CN";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = locale === "zh-CN" ? zhCN : en;
+---
+
+<footer class="border-t border-border bg-white mt-auto">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-text-muted">{t.footer.copyright}</p>
+      <nav class="flex items-center gap-4 text-sm" aria-label="Footer links">
+        <a href={`/${locale}/privacy`} class="text-text-muted hover:text-text transition-colors">
+          {t.footer.privacy}
+        </a>
+        <a href={`/${locale}/terms`} class="text-text-muted hover:text-text transition-colors">
+          {t.footer.terms}
+        </a>
+        <a href={`/${locale}/about`} class="text-text-muted hover:text-text transition-colors">
+          {t.footer.about}
+        </a>
+      </nav>
+    </div>
+  </div>
+</footer>

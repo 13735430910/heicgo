@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AdBanner from "../../../components/ads/AdBanner.astro";
+import en from "../../../i18n/locales/en";
+import zhCN from "../../../i18n/locales/zh-CN";
+import { getLocaleFromParams } from "../../../i18n/ui";
+
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+}
+
+const locale = getLocaleFromParams(Astro.params);
+const t = locale === "zh-CN" ? zhCN : en;
+const path = Astro.url.pathname;
+
+const posts = await getCollection("blog");
+posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+---
+
+<BaseLayout locale={locale} title={t.seo.blogTitle} description={t.seo.blogDescription} path={path} type="website">
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-text mb-8">Blog</h1>
+    <div class="space-y-8">
+      {posts.map((p) => (
+        <article class="border-b border-border pb-8">
+          <a href={`/${locale}/blog/post/${p.id}`} class="no-underline">
+            <h2 class="text-xl font-semibold text-text hover:text-primary transition-colors mb-2">
+              {p.data.title}
+            </h2>
+          </a>
+          <p class="text-text-secondary mb-3">{p.data.description}</p>
+          <div class="flex items-center gap-3 text-sm text-text-muted">
+            <time datetime={p.data.publishDate.toISOString()}>
+              {p.data.publishDate.toLocaleDateString(locale === "zh-CN" ? "zh-CN" : "en-US", { dateStyle: "medium" })}
+            </time>
+            {p.data.tags?.map((tag) => (
+              <span class="bg-gray-100 px-2 py-0.5 rounded text-xs">{tag}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+  <AdBanner />
+</BaseLayout>

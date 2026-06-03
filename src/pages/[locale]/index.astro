@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AdBanner from "../../components/ads/AdBanner.astro";
+import { Converter } from "../../components/converter/Converter";
+import en from "../../i18n/locales/en";
+import zhCN from "../../i18n/locales/zh-CN";
+import { getLocaleFromParams } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+}
+
+const locale = getLocaleFromParams(Astro.params);
+const t = locale === "zh-CN" ? zhCN : en;
+const path = Astro.url.pathname;
+---
+
+<BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path}>
+  <section class="max-w-6xl mx-auto px-4 pt-12 pb-6 text-center">
+    <h1 class="text-3xl sm:text-4xl font-bold text-text mb-3">{t.hero.title}</h1>
+    <p class="text-lg text-text-secondary">{t.hero.subtitle}</p>
+  </section>
+
+  <AdBanner />
+
+  <section class="max-w-3xl mx-auto px-4 pb-8">
+    <Converter texts={t} client:load />
+  </section>
+
+  <AdBanner />
+</BaseLayout>

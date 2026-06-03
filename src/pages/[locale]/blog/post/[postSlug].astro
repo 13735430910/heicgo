@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import AdBanner from "../../../../components/ads/AdBanner.astro";
+import { getLocaleFromParams } from "../../../../i18n/ui";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const locales = ["en", "zh-CN"];
+  const paths = [];
+  for (const post of posts) {
+    for (const locale of locales) {
+      paths.push({
+        params: { locale, postSlug: post.id },
+        props: { post },
+      });
+    }
+  }
+  return paths;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const locale = getLocaleFromParams(Astro.params);
+const path = Astro.url.pathname;
+---
+
+<BaseLayout locale={locale} title={post.data.title} description={post.data.description} path={path} type="article">
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">{post.data.title}</h1>
+      <div class="flex items-center gap-3 text-sm text-text-muted">
+        <time datetime={post.data.publishDate.toISOString()}>
+          {post.data.publishDate.toLocaleDateString(locale === "zh-CN" ? "zh-CN" : "en-US", { dateStyle: "medium" })}
+        </time>
+        {post.data.tags?.map((tag) => (
+          <span class="bg-gray-100 px-2 py-0.5 rounded text-xs">{tag}</span>
+        ))}
+      </div>
+    </header>
+    <div class="prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
+      <Content />
+    </div>
+  </article>
+  <AdBanner />
+</BaseLayout>

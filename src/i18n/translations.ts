@@ -1,0 +1,71 @@
+export interface Translation {
+  siteTitle: string;
+  siteDescription: string;
+  nav: {
+    home: string;
+    blog: string;
+    faq: string;
+    about: string;
+  };
+  hero: {
+    title: string;
+    subtitle: string;
+  };
+  dropZone: {
+    title: string;
+    browse: string;
+    supported: string;
+    maxSize: string;
+  };
+  options: {
+    quality: string;
+    maxWidth: string;
+    preserveExif: string;
+    autoRotate: string;
+    maxWidthOptions: Record<string, string>;
+  };
+  actions: {
+    convert: string;
+    converting: string;
+    download: string;
+    downloadAll: string;
+    clear: string;
+  };
+  results: {
+    title: string;
+    originalSize: string;
+    convertedSize: string;
+    saved: string;
+    exifPreserved: string;
+    noExif: string;
+  };
+  errors: {
+    noFiles: string;
+    unsupportedFormat: string;
+    fileTooLarge: string;
+    conversionFailed: string;
+    unknown: string;
+  };
+  footer: {
+    privacy: string;
+    terms: string;
+    about: string;
+    copyright: string;
+  };
+  seo: {
+    homeTitle: string;
+    homeDescription: string;
+    privacyTitle: string;
+    privacyDescription: string;
+    termsTitle: string;
+    termsDescription: string;
+    aboutTitle: string;
+    aboutDescription: string;
+    faqTitle: string;
+    faqDescription: string;
+    blogTitle: string;
+    blogDescription: string;
+  };
+}
+
+export type Locale = "en" | "zh-CN";

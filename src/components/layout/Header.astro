@@ -1,0 +1,61 @@
+---
+import type { Locale } from "../../i18n/translations";
+import en from "../../i18n/locales/en";
+import zhCN from "../../i18n/locales/zh-CN";
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const t = locale === "zh-CN" ? zhCN : en;
+
+const otherLocale: Locale = locale === "en" ? "zh-CN" : "en";
+const otherLabel = otherLocale === "zh-CN" ? "中文" : "English";
+
+function switchPath(path: string, to: Locale): string {
+  const parts = path.split("/").filter(Boolean);
+  if (parts.length > 0 && (parts[0] === "en" || parts[0] === "zh-CN")) {
+    parts[0] = to;
+    return "/" + parts.join("/");
+  }
+  return "/" + to + (parts.length ? "/" + parts.join("/") : "");
+}
+---
+
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+    <a href={`/${locale}`} class="flex items-center gap-2 font-semibold text-lg no-underline text-text">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21,15 16,10 5,21"/>
+      </svg>
+      <span>heicgo</span>
+    </a>
+
+    <nav class="hidden sm:flex items-center gap-6 text-sm" aria-label="Main navigation">
+      <a href={`/${locale}`} class="text-text-secondary hover:text-text transition-colors">
+        {t.nav.home}
+      </a>
+      <a href={`/${locale}/blog`} class="text-text-secondary hover:text-text transition-colors">
+        {t.nav.blog}
+      </a>
+      <a href={`/${locale}/faq`} class="text-text-secondary hover:text-text transition-colors">
+        {t.nav.faq}
+      </a>
+      <a href={`/${locale}/about`} class="text-text-secondary hover:text-text transition-colors">
+        {t.nav.about}
+      </a>
+    </nav>
+
+    <a
+      href={switchPath(currentPath, otherLocale)}
+      class="text-sm text-text-secondary hover:text-text transition-colors px-2 py-1 rounded border border-border hover:border-text-muted"
+      aria-label={`Switch to ${otherLabel}`}
+    >
+      {otherLabel}
+    </a>
+  </div>
+</header>

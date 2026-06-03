@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import en from "../../i18n/locales/en";
+import zhCN from "../../i18n/locales/zh-CN";
+import { getLocaleFromParams } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return [{ params: { locale: "en" } }, { params: { locale: "zh-CN" } }];
+}
+
+const locale = getLocaleFromParams(Astro.params);
+const t = locale === "zh-CN" ? zhCN : en;
+const path = Astro.url.pathname;
+---
+
+<BaseLayout locale={locale} title={t.seo.privacyTitle} description={t.seo.privacyDescription} path={path}>
+  <div class="max-w-3xl mx-auto px-4 py-12 prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary">
+    <h1>Privacy Policy</h1>
+    <p class="text-sm text-text-muted">Last updated: June 3, 2025</p>
+
+    <h2>1. Overview</h2>
+    <p>
+      heicgo.com is committed to protecting your privacy.
+      <strong>All image conversion happens locally in your browser.</strong>
+      Your files and EXIF metadata never leave your device.
+    </p>
+
+    <h2>2. Data We Do NOT Collect</h2>
+    <ul>
+      <li>HEIC files you upload for conversion</li>
+      <li>Converted JPEG files</li>
+      <li>EXIF metadata (GPS location, camera info, timestamps)</li>
+      <li>Personal identification information</li>
+    </ul>
+
+    <h2>3. Third-Party Services</h2>
+    <ul>
+      <li><strong>Google AdSense</strong> — displays ads and may use cookies for personalization. See <a href="https://policies.google.com/technologies/ads">Google's Advertising Policies</a>.</li>
+      <li><strong>Cloudflare Web Analytics</strong> — privacy-first analytics, no cookies, no cross-site tracking.</li>
+    </ul>
+
+    <h2>4. Cookies</h2>
+    <p>Google uses cookies to serve ads based on prior visits. Opt out at <a href="https://www.google.com/settings/ads">Google Ads Settings</a>.</p>
+
+    <h2>5. Contact</h2>
+    <p><a href="mailto:privacy@heicgo.com">privacy@heicgo.com</a></p>
+  </div>
+</BaseLayout>

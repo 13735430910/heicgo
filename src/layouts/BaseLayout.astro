@@ -1,0 +1,37 @@
+---
+import type { Locale } from "../i18n/translations";
+import SEO from "../components/layout/SEO.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path: string;
+  type?: "website" | "article";
+  image?: string;
+}
+
+const { locale, title, description, path, type, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale === "zh-CN" ? "zh-Hans" : locale}>
+  <head>
+    <meta charset="utf-8" />
+    <SEO {title} {description} {locale} {path} {type} {image} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang="en" href={new URL("/en" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
+    <link rel="alternate" hreflang="zh-CN" href={new URL("/zh-CN" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/en" + path.replace(/^\/(en|zh-CN)/, ""), Astro.site).href} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header {locale} currentPath={path} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer {locale} />
+  </body>
+</html>

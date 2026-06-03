@@ -1,0 +1,25 @@
+---
+interface Props {
+  slotId?: string;
+  className?: string;
+}
+
+const { slotId = "", className = "" } = Astro.props;
+---
+
+<div class:list={["ad-slot w-full max-w-[728px] mx-auto my-4", className]}>
+  {
+    slotId ? (
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXX"
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+    ) : (
+      <span class="text-xs text-text-muted uppercase tracking-wider">Advertisement</span>
+    )
+  }
+</div>

@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "heicgo" [ref=e4] [cursor=pointer]:
+        - /url: /en
+        - img [ref=e5]
+        - generic [ref=e9]: heicgo
+      - navigation "Main navigation" [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: /en
+        - link "Blog" [ref=e12] [cursor=pointer]:
+          - /url: /en/blog
+        - link "FAQ" [ref=e13] [cursor=pointer]:
+          - /url: /en/faq
+        - link "About" [ref=e14] [cursor=pointer]:
+          - /url: /en/about
+      - link "Switch to 中文" [ref=e15] [cursor=pointer]:
+        - /url: /zh-CN
+        - text: 中文
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - heading "HEIC to JPG Converter" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Free · Private · No Upload Required
+    - generic [ref=e20]:
+      - text: Advertisement
+      - generic [ref=e21]: Advertisement
+    - generic [ref=e24]:
+      - generic [ref=e25] [cursor=pointer]:
+        - img [ref=e26]
+        - paragraph [ref=e29]: Drop HEIC files here
+        - paragraph [ref=e30]: Supports HEIC, HEIF · Max 50MB per file
+        - generic [ref=e31]: Browse files
+      - generic [ref=e43]:
+        - img [ref=e46]
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: 3e12e195-2a45-4b2a-90d6-72dc0bb30bfe.HEIC
+          - generic [ref=e52]:
+            - generic [ref=e53]: "Original: 3.5 MB"
+            - generic [ref=e82]: "Failed to execute 'createObjectURL' on 'URL': Overload resolution failed."
+        - generic [ref=e54]: Error
+        - button "Remove file" [ref=e55]:
+          - img [ref=e56]
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: Quality
+            - generic [ref=e63]: 92%
+          - slider [ref=e64] [cursor=pointer]: "0.92"
+          - generic [ref=e65]:
+            - generic [ref=e66]: Smaller file
+            - generic [ref=e67]: Better quality
+        - generic [ref=e68]:
+          - generic [ref=e69]: Max Width
+          - combobox [ref=e70]:
+            - option "800px"
+            - option "1280px"
+            - option "1920px (Full HD)"
+            - option "Original" [selected]
+        - generic [ref=e71]:
+          - generic [ref=e72] [cursor=pointer]:
+            - checkbox "Preserve EXIF data" [checked] [ref=e73]
+            - generic [ref=e74]: Preserve EXIF data
+          - generic [ref=e75] [cursor=pointer]:
+            - checkbox "Auto rotate" [checked] [ref=e76]
+            - generic [ref=e77]: Auto rotate
+      - generic [ref=e78]:
+        - button "Convert to JPG" [disabled] [ref=e83]
+        - button "Clear All" [ref=e80]
+    - generic [ref=e32]:
+      - text: Advertisement
+      - generic [ref=e33]: Advertisement
+  - contentinfo [ref=e34]:
+    - generic [ref=e36]:
+      - paragraph [ref=e37]: heicgo.com — Free online HEIC to JPG converter.
+      - navigation "Footer links" [ref=e38]:
+        - link "Privacy Policy" [ref=e39] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=e40] [cursor=pointer]:
+          - /url: /en/terms
+        - link "About" [ref=e41] [cursor=pointer]:
+          - /url: /en/about

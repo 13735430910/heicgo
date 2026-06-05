@@ -14,8 +14,8 @@ export default defineConfig({
     mdx(),
     sitemap({
       filter: (page) => {
-        const url = new URL(page);
-        return !/^\/(zh-CN|de|ja|ko|fr)\/(about|contact|faq|privacy|terms)\//.test(url.pathname);
+        const { pathname } = new URL(page);
+        return !/^\/(zh-CN|de|ja|ko|fr)\/(privacy|terms)\//.test(pathname);
       },
     }),
   ],

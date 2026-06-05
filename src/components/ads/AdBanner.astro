@@ -1,10 +1,21 @@
 ---
+import type { Locale } from "../../i18n/translations";
+
 interface Props {
   slotId?: string;
   className?: string;
+  locale?: Locale;
 }
 
-const { slotId = "", className = "" } = Astro.props;
+const { slotId = "", className = "", locale = "en" } = Astro.props;
+const labels: Record<Locale, string> = {
+  en: "Advertisement",
+  "zh-CN": "广告",
+  de: "Anzeige",
+  ja: "広告",
+  ko: "광고",
+  fr: "Publicité",
+};
 ---
 
 <div class:list={["ad-slot w-full max-w-[728px] mx-auto my-4", className]}>
@@ -19,7 +30,7 @@ const { slotId = "", className = "" } = Astro.props;
         data-full-width-responsive="true"
       ></ins>
     ) : (
-      <span class="text-xs text-text-muted uppercase tracking-wider">Advertisement</span>
+      <span class="text-xs text-text-muted uppercase tracking-wider">{labels[locale]}</span>
     )
   }
 </div>

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import AdBanner from "../../components/ads/AdBanner.astro";
 import { getLocaleFromParams, getTranslation } from "../../i18n/ui";
 import { ALL_LOCALES } from "../../i18n/translations";
+import { supportContent } from "../../i18n/support-content";
 
 export function getStaticPaths() {
   return ALL_LOCALES.map((locale) => ({ params: { locale } }));
@@ -10,45 +11,13 @@ export function getStaticPaths() {
 
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
+const content = supportContent[locale].faq;
 const path = Astro.url.pathname;
-const canonicalPath = locale === "en" ? path : path.replace(`/${locale}/`, "/en/");
-const noindex = locale !== "en";
-
-const faqs = [
-  {
-    q: "Is heicgo really free?",
-    a: "Yes, heicgo is completely free with no limits on file count or conversions. The site is supported by advertisements.",
-  },
-  {
-    q: "Are my photos uploaded to a server?",
-    a: "No. All HEIC to JPG conversion happens locally in your browser. Your files never leave your device.",
-  },
-  {
-    q: "Does the conversion preserve EXIF metadata?",
-    a: "Yes! heicgo preserves EXIF data including GPS location, date/time, and camera model — this is our key differentiator.",
-  },
-  {
-    q: "What is the maximum file size?",
-    a: "Each file can be up to 50MB.",
-  },
-  {
-    q: "Which browsers are supported?",
-    a: "Safari 17+ (fastest), Chrome, Firefox, and Edge all work.",
-  },
-  {
-    q: "Can I batch convert multiple files?",
-    a: "Yes. Drag in multiple files and use 'Download All (ZIP)' to get them in a single archive.",
-  },
-  {
-    q: "What quality setting should I use?",
-    a: "Default 92% is a good balance. Use 100% for best quality or 60-80% for smaller files.",
-  },
-];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: content.items.map((faq) => ({
     "@type": "Question",
     name: faq.q,
     acceptedAnswer: { "@type": "Answer", text: faq.a },
@@ -56,18 +25,19 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout locale={locale} title={t.seo.faqTitle} description={t.seo.faqDescription} path={path} canonicalPath={canonicalPath} noindex={noindex}>
-  <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold text-text mb-8">Frequently Asked Questions</h1>
-    <div class="space-y-6">
-      {faqs.map((faq) => (
-        <div class="bg-surface border border-border rounded-lg p-5">
+<BaseLayout locale={locale} title={t.seo.faqTitle} description={content.description} path={path} alternateLocales={ALL_LOCALES}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-text mb-3">{content.title}</h1>
+    <p class="text-text-secondary mb-8 max-w-2xl">{content.description}</p>
+    <div class="grid gap-5 sm:grid-cols-2">
+      {content.items.map((faq) => (
+        <article class="bg-surface border border-border rounded-lg p-5">
           <h2 class="font-semibold text-text mb-2">{faq.q}</h2>
           <p class="text-text-secondary text-sm leading-relaxed">{faq.a}</p>
-        </div>
+        </article>
       ))}
     </div>
   </div>
-  <AdBanner />
+  <AdBanner locale={locale} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </BaseLayout>

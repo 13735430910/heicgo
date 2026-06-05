@@ -1,9 +1,15 @@
 ---
+import type { Locale } from "../../i18n/translations";
+import { blogUi } from "../../i18n/localized-blog";
+
 interface Props {
   date: Date;
+  locale: Locale;
 }
 
-const { date } = Astro.props;
+const { date, locale } = Astro.props;
+const ui = blogUi[locale];
+const dateLocaleMap = { en: "en-US", "zh-CN": "zh-CN", de: "de-DE", ja: "ja-JP", ko: "ko-KR", fr: "fr-FR" };
 ---
 
 <div class="mt-8 pt-6 border-t border-border flex items-start gap-4 not-prose">
@@ -11,12 +17,12 @@ const { date } = Astro.props;
     <span class="text-primary font-bold text-lg">H</span>
   </div>
   <div>
-    <p class="font-semibold text-text text-sm">heicgo Editorial Team</p>
+    <p class="font-semibold text-text text-sm">{ui.author}</p>
     <p class="text-text-muted text-xs mt-0.5">
-      Published <time datetime={date.toISOString()}>
-        {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      {ui.published} <time datetime={date.toISOString()}>
+        {date.toLocaleDateString(dateLocaleMap[locale], { year: "numeric", month: "long", day: "numeric" })}
       </time>
-      &nbsp;·&nbsp; Expert guides on HEIC conversion, image formats, and photo management.
+      &nbsp;·&nbsp; {ui.authorNote}
     </p>
   </div>
 </div>

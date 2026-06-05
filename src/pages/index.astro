@@ -1,30 +1,58 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { ALL_LOCALES } from "../i18n/translations";
-import { localeLabels } from "../i18n/ui";
-
-const title = "heicgo — Free HEIC to JPG or PNG Converter";
-const description = "Choose your language for heicgo, a free private HEIC to JPG or PNG converter that runs in your browser with no upload.";
+// Root language router. Browser users land on their locale page; unsupported
+// languages fall back to English.
 ---
 
-<BaseLayout locale="en" title={title} description={description} path="/" alternateLocales={ALL_LOCALES} xDefaultPath="/">
-  <section class="max-w-5xl mx-auto px-4 py-16 sm:py-20 text-center">
-    <p class="text-sm font-medium text-primary mb-3">heicgo.com</p>
-    <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">HEIC to JPG or PNG Converter</h1>
-    <p class="text-lg text-text-secondary max-w-2xl mx-auto">
-      Choose a language to open the private browser-based converter. Your HEIC files stay on your device.
-    </p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://heicgo.com/en/" />
+    <link rel="alternate" hreflang="en" href="https://heicgo.com/en/" />
+    <link rel="alternate" hreflang="zh-Hans" href="https://heicgo.com/zh-CN/" />
+    <link rel="alternate" hreflang="de" href="https://heicgo.com/de/" />
+    <link rel="alternate" hreflang="ja" href="https://heicgo.com/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://heicgo.com/ko/" />
+    <link rel="alternate" hreflang="fr" href="https://heicgo.com/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://heicgo.com/en/" />
+    <title>heicgo — HEIC to JPG or PNG Converter</title>
+    <script>
+      (function () {
+        var supported = {
+          en: "/en/",
+          "zh-cn": "/zh-CN/",
+          zh: "/zh-CN/",
+          de: "/de/",
+          ja: "/ja/",
+          ko: "/ko/",
+          fr: "/fr/"
+        };
 
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mt-10 text-left">
-      {ALL_LOCALES.map((locale) => (
-        <a
-          href={`/${locale}/`}
-          class="block bg-surface border border-border rounded-lg p-4 no-underline hover:border-primary transition-colors"
-        >
-          <span class="font-semibold text-text">{localeLabels[locale]}</span>
-          <span class="block text-sm text-text-secondary mt-1">/{locale}/</span>
-        </a>
-      ))}
-    </div>
-  </section>
-</BaseLayout>
+        var saved = "";
+        try { saved = localStorage.getItem("heicgo-locale") || ""; } catch {}
+
+        var langs = saved ? [saved] : (navigator.languages || [navigator.language || "en"]);
+        var target = "/en/";
+        for (var i = 0; i < langs.length; i++) {
+          var lang = String(langs[i] || "").toLowerCase();
+          if (supported[lang]) {
+            target = supported[lang];
+            break;
+          }
+          var base = lang.split("-")[0];
+          if (supported[base]) {
+            target = supported[base];
+            break;
+          }
+        }
+
+        window.location.replace(target + window.location.search + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">heicgo.com/en/</a>...</p>
+  </body>
+</html>

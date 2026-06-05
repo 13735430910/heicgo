@@ -81,8 +81,8 @@ export interface Translation {
 
 export type Locale = "en" | "zh-CN" | "de" | "ja" | "ko" | "fr";
 
-/** Locales that currently have full blog body content. */
-export const FULL_LOCALES: Locale[] = ["en"];
+/** Locales that get full localized content pages including blog. */
+export const FULL_LOCALES: Locale[] = ["en", "zh-CN", "de", "ja", "ko", "fr"];
 
 /** All supported locales for UI */
 export const ALL_LOCALES: Locale[] = ["en", "zh-CN", "de", "ja", "ko", "fr"];

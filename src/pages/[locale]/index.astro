@@ -33,20 +33,20 @@ const howToSchema = {
 };
 ---
 
-<BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path} alternateLocales={ALL_LOCALES} xDefaultPath="/">
+<BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path} alternateLocales={ALL_LOCALES} xDefaultPath="/en/">
   <section class="max-w-6xl mx-auto px-4 pt-8 pb-5 text-center">
     <p class="text-sm font-medium text-primary mb-3">heicgo.com</p>
     <h1 class="text-3xl sm:text-4xl font-bold text-text mb-3">{t.hero.title}</h1>
     <p class="text-lg text-text-secondary max-w-2xl mx-auto">{t.hero.subtitle}</p>
   </section>
 
-  <AdBanner />
+  <AdBanner locale={locale} />
 
   <section class="max-w-4xl mx-auto px-4 pb-10">
     <Converter texts={t} client:load />
   </section>
 
-  <AdBanner />
+  <AdBanner locale={locale} />
 
   <section class="bg-white border-y border-border">
     <div class="max-w-6xl mx-auto px-4 py-12 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">

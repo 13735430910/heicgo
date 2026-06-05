@@ -4,6 +4,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../components/ads/AdBanner.astro";
 import { getLocaleFromParams, getTranslation } from "../../../i18n/ui";
 import { FULL_LOCALES } from "../../../i18n/translations";
+import { blogUi, getLocalizedBlogMeta, localizedTags } from "../../../i18n/localized-blog";
 
 export function getStaticPaths() {
   return FULL_LOCALES.map((locale) => ({ params: { locale } }));
@@ -11,19 +12,18 @@ export function getStaticPaths() {
 
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
+const ui = blogUi[locale];
 const path = Astro.url.pathname;
-
-const isFullLocale = FULL_LOCALES.includes(locale);
 
 const posts = await getCollection("blog");
 posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
 
 const categories = [
-  { slug: "conversion", label: "Conversion Guides", keywords: ["heic", "conversion", "batch", "quality"] },
-  { slug: "platform", label: "Platform Guides", keywords: ["windows", "mac", "iphone", "ios", "transfer"] },
-  { slug: "formats", label: "Format Explained", keywords: ["formats", "jpeg", "png", "webp", "explainer", "comparison"] },
-  { slug: "tips", label: "Tips & Optimization", keywords: ["storage", "compression", "management", "email", "tutorial"] },
-  { slug: "tools", label: "Privacy & Tools", keywords: ["privacy", "security", "tools", "free", "converters"] },
+  { slug: "conversion", label: ui.categories.conversion, keywords: ["heic", "conversion", "batch", "quality"] },
+  { slug: "platform", label: ui.categories.platform, keywords: ["windows", "mac", "iphone", "ios", "transfer"] },
+  { slug: "formats", label: ui.categories.formats, keywords: ["formats", "jpeg", "png", "webp", "explainer", "comparison"] },
+  { slug: "tips", label: ui.categories.tips, keywords: ["storage", "compression", "management", "email", "tutorial"] },
+  { slug: "tools", label: ui.categories.tools, keywords: ["privacy", "security", "tools", "free", "converters"] },
 ];
 
 function matchCat(postTags: string[] | undefined, keywords: string[]) {
@@ -34,21 +34,22 @@ function matchCat(postTags: string[] | undefined, keywords: string[]) {
 // Extract tag from URL for filtering
 const activeTag = Astro.url.searchParams.get("tag") || null;
 
-const dateLocale = locale === "zh-CN" ? "zh-CN" : "en-US";
+const dateLocaleMap = { en: "en-US", "zh-CN": "zh-CN", de: "de-DE", ja: "ja-JP", ko: "ko-KR", fr: "fr-FR" };
+const dateLocale = dateLocaleMap[locale];
 const dateOpts = { year: "numeric", month: "short", day: "numeric" };
 ---
 
 <BaseLayout locale={locale} title={t.seo.blogTitle} description={t.seo.blogDescription} path={path} alternateLocales={FULL_LOCALES} type="website">
   <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold text-text mb-2">Blog</h1>
+    <h1 class="text-3xl font-bold text-text mb-2">{ui.title}</h1>
     <p class="text-text-secondary mb-8">
-      Guides, tutorials, and tips about HEIC conversion, image formats, and photo management.
+      {ui.description}
     </p>
 
     <nav class="flex flex-wrap gap-2 mb-10" aria-label="Blog categories">
       <a href="?" data-category="all"
          class="category-tab px-4 py-1.5 rounded-full text-sm font-medium border bg-primary text-white border-primary no-underline">
-        All Posts
+        {ui.allPosts}
       </a>
       {categories.map((cat) => (
         <a href={`?category=${cat.slug}`} data-category={cat.slug}
@@ -61,9 +62,9 @@ const dateOpts = { year: "numeric", month: "short", day: "numeric" };
     <!-- Active tag filter badge -->
     {activeTag && (
       <div class="mb-8 flex items-center gap-2">
-        <span class="text-sm text-text-secondary">Filtered by tag:</span>
+        <span class="text-sm text-text-secondary">{ui.filteredByTag}</span>
         <span class="bg-primary-light text-primary text-sm px-3 py-1 rounded-full font-medium">{activeTag}</span>
-        <a href="?" class="text-xs text-text-muted hover:text-text ml-1">✕ Clear</a>
+        <a href="?" class="text-xs text-text-muted hover:text-text ml-1">× {ui.clear}</a>
       </div>
     )}
 
@@ -77,36 +78,43 @@ const dateOpts = { year: "numeric", month: "short", day: "numeric" };
         <section class="mb-12" data-category-section={cat.slug}>
           <div class="flex items-center gap-3 mb-6">
             <h2 class="text-lg font-semibold text-text">{cat.label}</h2>
-            <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded-full">{catPosts.length} posts</span>
+            <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded-full">{catPosts.length} {ui.posts}</span>
           </div>
           <div class="space-y-6">
-            {catPosts.map((p) => (
-              <article class="border-b border-border pb-6 last:border-0">
-                <a href={`/${locale}/blog/post/${p.id}`} class="no-underline group block">
-                  <h3 class="text-lg font-semibold text-text group-hover:text-primary transition-colors mb-1.5">
-                    {isFullLocale ? p.data.title : (getBlogTranslation(locale, p.id)?.title || p.data.title)}
-                  </h3>
-                  <p class="text-text-secondary text-sm mb-2 leading-relaxed">
-                    {isFullLocale ? p.data.description : (getBlogTranslation(locale, p.id)?.description || p.data.description)}
-                  </p>
-                </a>
-                <div class="flex items-center gap-3 text-xs text-text-muted">
-                  <time datetime={p.data.publishDate.toISOString()}>
-                    {p.data.publishDate.toLocaleDateString(dateLocale, dateOpts as any)}
-                  </time>
-                  {p.data.tags?.slice(0, 3).map((tag) => (
-                    <a href={`?tag=${encodeURIComponent(tag)}`} class="bg-gray-100 px-2 py-0.5 rounded hover:bg-primary-light hover:text-primary transition-colors no-underline">{tag}</a>
-                  ))}
-                </div>
-              </article>
-            ))}
+            {catPosts.map((p) => {
+              const meta = getLocalizedBlogMeta(locale, p);
+              const tags = localizedTags(locale, p.data.tags?.slice(0, 3) ?? []);
+              return (
+                <article class="border-b border-border pb-6 last:border-0">
+                  <a href={`/${locale}/blog/post/${p.id}`} class="no-underline group block">
+                    <h3 class="text-lg font-semibold text-text group-hover:text-primary transition-colors mb-1.5">
+                      {meta.title}
+                    </h3>
+                    <p class="text-text-secondary text-sm mb-2 leading-relaxed">
+                      {meta.description}
+                    </p>
+                  </a>
+                  <div class="flex flex-wrap items-center gap-3 text-xs text-text-muted">
+                    <time datetime={p.data.publishDate.toISOString()}>
+                      {p.data.publishDate.toLocaleDateString(dateLocale, dateOpts as any)}
+                    </time>
+                    {tags.map((tagLabel, index) => {
+                      const original = p.data.tags?.[index] || tagLabel;
+                      return (
+                        <a href={`?tag=${encodeURIComponent(original)}`} class="bg-gray-100 px-2 py-0.5 rounded hover:bg-primary-light hover:text-primary transition-colors no-underline">{tagLabel}</a>
+                      );
+                    })}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
       );
     })}
   </div>
 
-  <AdBanner />
+  <AdBanner locale={locale} />
 </BaseLayout>
 
 <script src="/js/blog-filter.js" defer></script>

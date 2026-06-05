@@ -1,14 +1,17 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../../i18n/translations";
+import { blogUi, getLocalizedBlogMeta } from "../../i18n/localized-blog";
 
 interface Props {
   current: CollectionEntry<"blog">;
   allPosts: CollectionEntry<"blog">[];
-  locale: string;
+  locale: Locale;
   max?: number;
 }
 
 const { current, allPosts, locale, max = 3 } = Astro.props;
+const ui = blogUi[locale];
 
 // Score related posts by tag overlap, exclude current post, sort by relevance then date
 const currentTags = new Set(current.data.tags ?? []);
@@ -26,23 +29,26 @@ if (scored.length === 0) return null;
 ---
 
 <section class="mt-12 pt-8 border-t-2 border-border not-prose">
-  <h2 class="text-lg font-semibold text-text mb-6">Related Articles</h2>
+  <h2 class="text-lg font-semibold text-text mb-6">{ui.related}</h2>
   <div class="grid gap-4 sm:grid-cols-3">
-    {scored.map(({ post, overlap }) => (
-      <a
-        href={`/${locale}/blog/post/${post.id}`}
-        class="block bg-surface border border-border rounded-lg p-4 no-underline hover:border-primary hover:shadow-sm transition-all group"
-      >
-        <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded-full mb-2 inline-block">
-          {overlap} tag{overlap > 1 ? "s" : ""} matched
-        </span>
-        <h3 class="text-sm font-semibold text-text group-hover:text-primary transition-colors line-clamp-2 mb-1">
-          {post.data.title}
-        </h3>
-        <p class="text-xs text-text-muted line-clamp-2">
-          {post.data.description}
-        </p>
-      </a>
-    ))}
+    {scored.map(({ post, overlap }) => {
+      const meta = getLocalizedBlogMeta(locale, post);
+      return (
+        <a
+          href={`/${locale}/blog/post/${post.id}`}
+          class="block bg-surface border border-border rounded-lg p-4 no-underline hover:border-primary hover:shadow-sm transition-all group"
+        >
+          <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded-full mb-2 inline-block">
+            {ui.tagsMatched(overlap)}
+          </span>
+          <h3 class="text-sm font-semibold text-text group-hover:text-primary transition-colors line-clamp-2 mb-1">
+            {meta.title}
+          </h3>
+          <p class="text-xs text-text-muted line-clamp-2">
+            {meta.description}
+          </p>
+        </a>
+      );
+    })}
   </div>
 </section>

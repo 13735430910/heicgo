@@ -52,10 +52,10 @@ const blogHref = FULL_LOCALES.includes(locale) ? `/${locale}/blog` : "/en/blog";
     <select
       class="text-sm text-text-secondary bg-white px-2 py-1 rounded border border-border hover:border-text-muted"
       aria-label="Language"
-      onchange="window.location.href=this.value"
+      onchange="try{localStorage.setItem('heicgo-locale', this.selectedOptions[0].dataset.locale || '')}catch{}; window.location.href=this.value"
     >
       {ALL_LOCALES.map((l) => (
-        <option value={switchPath(currentPath, l)} selected={l === locale}>
+        <option value={switchPath(currentPath, l)} data-locale={l} selected={l === locale}>
           {localeLabels[l]}
         </option>
       ))}

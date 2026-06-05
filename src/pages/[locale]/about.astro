@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getLocaleFromParams, getTranslation } from "../../i18n/ui";
 import { ALL_LOCALES } from "../../i18n/translations";
+import { supportContent } from "../../i18n/support-content";
 
 export function getStaticPaths() {
   return ALL_LOCALES.map((locale) => ({ params: { locale } }));
@@ -9,52 +10,67 @@ export function getStaticPaths() {
 
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
+const content = supportContent[locale].about;
 const path = Astro.url.pathname;
-const canonicalPath = locale === "en" ? path : path.replace(`/${locale}/`, "/en/");
-const noindex = locale !== "en";
 ---
 
-<BaseLayout locale={locale} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} canonicalPath={canonicalPath} noindex={noindex}>
-  <div class="mx-auto px-4 py-12 prose prose-slate max-w-none max-w-3xl prose-headings:text-text prose-p:text-text-secondary">
-    <h1>About heicgo</h1>
+<BaseLayout locale={locale} title={t.seo.aboutTitle} description={t.seo.aboutDescription} path={path} alternateLocales={ALL_LOCALES}>
+  <section class="bg-white border-b border-border">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <p class="text-sm font-medium text-primary mb-3">{content.eyebrow}</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-text mb-4">{content.title}</h1>
+        <p class="text-lg text-text-secondary leading-relaxed">{content.intro}</p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {content.differences.map((item) => (
+          <article class="bg-bg border border-border rounded-lg p-4">
+            <h2 class="font-semibold text-text mb-1">{item.title}</h2>
+            <p class="text-sm text-text-secondary leading-relaxed">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Our Mission</h2>
-    <p>
-      heicgo was built to solve a simple but frustrating problem: iPhone users
-      need to convert HEIC photos to JPEG, but most online converters either
-      upload your files to a server or strip important metadata like GPS location
-      and timestamps.
-    </p>
-    <p>
-      We believe privacy shouldn't be a premium feature. That's why heicgo
-      processes everything locally in your browser — no uploads, no accounts,
-      no tracking.
-    </p>
+  <section class="max-w-6xl mx-auto px-4 py-12 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+    <div class="prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary">
+      <h2>{content.missionTitle}</h2>
+      {content.mission.map((p) => <p>{p}</p>)}
+    </div>
 
-    <h2>Why heicgo is Different</h2>
-    <ul>
-      <li><strong>Privacy-first</strong> — files never leave your device</li>
-      <li><strong>EXIF preservation</strong> — the only WASM-based converter that keeps GPS and camera metadata</li>
-      <li><strong>Free with no limits</strong> — supported by ads, not user fees</li>
-      <li><strong>No registration</strong> — start converting immediately</li>
-    </ul>
+    <div>
+      <h2 class="text-xl font-semibold text-text mb-5">{content.workflowTitle}</h2>
+      <ol class="grid gap-4 sm:grid-cols-2">
+        {content.workflow.map((step, index) => (
+          <li class="flex gap-3">
+            <span class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-primary text-white text-sm font-semibold">{index + 1}</span>
+            <div>
+              <h3 class="font-semibold text-text">{step.title}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed mt-1">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 
-    <h2>How It Works</h2>
-    <p>
-      heicgo uses <strong>WebAssembly</strong> to decode HEIC files in the browser
-      at near-native speed, combined with the Canvas API for JPEG encoding. On Safari,
-      we use the browser's native HEIC decoder for up to 39x faster conversion.
-    </p>
+  <section class="bg-white border-y border-border">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-xl font-semibold text-text mb-5">{content.technologyTitle}</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {content.technology.map((item) => (
+          <article class="bg-surface border border-border rounded-lg p-4">
+            <h3 class="font-semibold text-text mb-1">{item.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <h2>Technology</h2>
-    <ul>
-      <li><strong>Frontend:</strong> Astro, Preact, Tailwind CSS</li>
-      <li><strong>HEIC Decoding:</strong> heic2any (WebAssembly) + Safari native</li>
-      <li><strong>EXIF:</strong> exifr + piexifjs</li>
-      <li><strong>Hosting:</strong> Cloudflare</li>
-    </ul>
-
-    <h2>Contact</h2>
-    <p>Questions or feedback? <a href="mailto:hello@heicgo.com">hello@heicgo.com</a></p>
-  </div>
+  <section class="max-w-3xl mx-auto px-4 py-12 text-center">
+    <h2 class="text-xl font-semibold text-text mb-3">{content.contactTitle}</h2>
+    <p class="text-text-secondary">{content.contactBody}</p>
+  </section>
 </BaseLayout>

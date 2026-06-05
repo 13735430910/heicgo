@@ -12,6 +12,7 @@ const port = Number(process.env.HEICGO_CHROME_PORT || 9237);
 const downloadDir = process.env.HEICGO_DOWNLOAD_DIR || `/tmp/heicgo-smoke-downloads-${format}`;
 const profileDir = process.env.HEICGO_CHROME_PROFILE || `/tmp/heicgo-smoke-profile-${format}`;
 const screenshotPath = process.env.HEICGO_SCREENSHOT || `/tmp/heicgo-smoke-${format}.png`;
+const hydrateTimeoutMs = Number(process.env.HEICGO_HYDRATE_TIMEOUT_MS || 90000);
 const files = (process.env.HEICGO_SMOKE_FILES || "test-files/image1.heic,test-files/image2.heic")
   .split(",")
   .map((file) => path.resolve(root, file.trim()))
@@ -135,7 +136,7 @@ async function main() {
     await page.send("Runtime.enable");
 
     await waitFor(() => evaluate(page, "document.readyState === 'complete'"), 30000);
-    await waitFor(() => evaluate(page, "!document.querySelector('astro-island[ssr]') && !!document.querySelector('input[type=file]')"), 30000);
+    await waitFor(() => evaluate(page, "!document.querySelector('astro-island[ssr]') && !!document.querySelector('input[type=file]')"), hydrateTimeoutMs);
 
     const doc = await page.send("DOM.getDocument", { depth: -1, pierce: true });
     const input = await page.send("DOM.querySelector", {

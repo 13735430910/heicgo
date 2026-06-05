@@ -57,6 +57,9 @@ export function processImage(
     ctx.restore();
   }
 
+  const mimeType = options.outputFormat === "png" ? "image/png" : "image/jpeg";
+  const quality = options.outputFormat === "jpeg" ? options.quality : undefined;
+
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
@@ -66,8 +69,8 @@ export function processImage(
         }
         resolve({ blob, width: targetW, height: targetH });
       },
-      "image/jpeg",
-      options.quality
+      mimeType,
+      quality
     );
   });
 }

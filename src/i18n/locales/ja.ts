@@ -1,11 +1,11 @@
 import type { Translation } from "../translations";
 
 const ja: Translation = {
-  siteTitle: "HEICからJPGへ変換 — 無料、プライベート、アップロード不要",
+  siteTitle: "HEICからJPGまたはPNGへ変換 — 無料、プライベート、アップロード不要",
   siteDescription:
-    "HEIC写真をオンラインでJPGに変換。100%プライベート — ファイルはデバイスから出ません。EXIFデータを保持。",
+    "HEIC写真をオンラインでJPGまたはPNGに変換。100%プライベート — ファイルはデバイスから出ません。JPG出力ではEXIFデータを保持できます。",
   nav: { home: "ホーム", blog: "ブログ", faq: "FAQ", about: "概要", contact: "お問い合わせ" },
-  hero: { title: "HEICからJPGへ変換", subtitle: "無料 · プライベート · アップロード不要" },
+  hero: { title: "HEICからJPGまたはPNGへ変換", subtitle: "無料 · プライベート · アップロード不要" },
   dropZone: {
     title: "HEICファイルをここにドロップ",
     browse: "ファイルを選択",
@@ -13,10 +13,18 @@ const ja: Translation = {
     maxSize: "1ファイル最大50MB",
   },
   options: {
+    outputFormat: "出力形式",
+    outputFormatOptions: {
+      jpeg: "JPG",
+      png: "PNG",
+    },
     quality: "画質",
     maxWidth: "最大幅",
     preserveExif: "EXIFデータを保持",
     autoRotate: "自動回転",
+    smallerFile: "小さいファイル",
+    betterQuality: "高画質",
+    pngExifNote: "PNG出力はロスレスですが、EXIFメタデータは保持されません。",
     maxWidthOptions: {
       original: "オリジナル",
       "1920": "1920px (フルHD)",
@@ -25,7 +33,7 @@ const ja: Translation = {
     },
   },
   actions: {
-    convert: "JPGに変換",
+    convert: "変換を開始",
     converting: "変換中...",
     download: "ダウンロード",
     downloadAll: "すべてダウンロード (ZIP)",
@@ -38,6 +46,11 @@ const ja: Translation = {
     saved: "削減",
     exifPreserved: "EXIF保持",
     noExif: "EXIFデータなし",
+    pending: "待機中",
+    converting: "変換中",
+    done: "完了",
+    error: "エラー",
+    remove: "ファイルを削除",
   },
   errors: {
     noFiles: "少なくとも1つのファイルを選択してください。",
@@ -53,8 +66,8 @@ const ja: Translation = {
     copyright: "heicgo.com — 無料オンラインHEIC to JPG変換ツール。",
   },
   seo: {
-    homeTitle: "HEICからJPGへ変換 — 無料、プライベート、アップロード不要",
-    homeDescription: "HEIC写真をオンラインでJPGに変換。100%プライベート。EXIFデータを保持。",
+    homeTitle: "HEICからJPGまたはPNGへ変換 — 無料、プライベート、アップロード不要",
+    homeDescription: "HEIC写真をオンラインでJPGまたはPNGに変換。100%プライベート。JPG出力ではEXIFデータを保持できます。",
     privacyTitle: "プライバシーポリシー — HEICからJPGへ変換",
     privacyDescription: "heicgo.comのプライバシーポリシー。すべての変換はデバイス上でローカルに処理されます。",
     termsTitle: "利用規約 — HEICからJPGへ変換",

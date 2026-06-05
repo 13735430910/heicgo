@@ -11,8 +11,8 @@ import { CONVERSION } from "../../config";
  * 1. Extract EXIF from HEIC bytes
  * 2. Decode HEIC → raw pixels (native or WASM)
  * 3. Canvas processing (resize, rotate)
- * 4. Encode to JPEG
- * 5. Re-inject EXIF into JPEG (the core differentiator)
+ * 4. Encode to JPEG or PNG
+ * 5. Re-inject EXIF into JPEG output (the core differentiator)
  */
 export async function convertSingleFile(
   entry: FileEntry,
@@ -48,16 +48,19 @@ export async function convertSingleFile(
     );
   }
 
-  // 3+4. Process image + encode to JPEG
+  // 3+4. Process image + encode output
   onProgress(id, 60);
   const { blob, width, height } = await processImage(decodeResult, options);
   onProgress(id, 80);
 
-  // 5. Inject EXIF into JPEG
+  // 5. Inject EXIF into JPEG. PNG EXIF support is inconsistent across browsers
+  // and viewers, so PNG output is deliberately treated as lossless pixel output.
   // Read once, then create the final blob — avoids consumed-blob issues
   const jpegBuffer = await blob.arrayBuffer();
-  let finalBlob = new Blob([jpegBuffer], { type: "image/jpeg" });
-  if (options.preserveExif && hasExif) {
+  const outputMime = options.outputFormat === "png" ? "image/png" : "image/jpeg";
+  let finalBlob = new Blob([jpegBuffer], { type: outputMime });
+  const canPreserveExif = options.outputFormat === "jpeg";
+  if (canPreserveExif && options.preserveExif && hasExif) {
     try {
       const injected = injectExifIntoJpeg(
         jpegBuffer,
@@ -75,8 +78,9 @@ export async function convertSingleFile(
 
   // Build result
   const nameWithoutExt = file.name.replace(/\.(heic|heif)$/i, "");
+  const extension = options.outputFormat === "png" ? "png" : "jpg";
   let exifSummary = null;
-  if (hasExif) {
+  if (canPreserveExif && hasExif) {
     try {
       exifSummary = buildExifSummary(
         exifData as unknown as import("./exif-extractor").ExifData
@@ -89,12 +93,12 @@ export async function convertSingleFile(
   onProgress(id, 100);
 
   return {
-    fileName: `${nameWithoutExt}.jpg`,
+    fileName: `${nameWithoutExt}.${extension}`,
     originalSize: file.size,
     convertedSize: finalBlob.size,
     blob: finalBlob,
     thumbnailUrl: thumbUrl,
-    hasExif,
+    hasExif: canPreserveExif && hasExif,
     exifSummary,
   };
 }

@@ -1,9 +1,9 @@
 import type { Translation } from "../translations";
 
 const zhCN: Translation = {
-  siteTitle: "HEIC 转 JPG 转换器 — 免费、私密、无需上传",
+  siteTitle: "HEIC 转 JPG 或 PNG 转换器 — 免费、私密、无需上传",
   siteDescription:
-    "在线免费将 HEIC 照片转换为 JPG。100% 保护隐私 — 文件不会离开您的设备。保留 EXIF 元数据。",
+    "在线免费将 HEIC 照片转换为 JPG 或 PNG。100% 保护隐私 — 文件不会离开您的设备。JPG 输出可保留 EXIF 元数据。",
   nav: {
     home: "首页",
     blog: "博客",
@@ -12,7 +12,7 @@ const zhCN: Translation = {
     contact: "联系我们",
   },
   hero: {
-    title: "HEIC 转 JPG 转换器",
+    title: "HEIC 转 JPG 或 PNG 转换器",
     subtitle: "免费 · 私密 · 无需上传",
   },
   dropZone: {
@@ -22,10 +22,18 @@ const zhCN: Translation = {
     maxSize: "单文件最大 50MB",
   },
   options: {
+    outputFormat: "输出格式",
+    outputFormatOptions: {
+      jpeg: "JPG",
+      png: "PNG",
+    },
     quality: "画质",
     maxWidth: "最大宽度",
     preserveExif: "保留 EXIF 数据",
     autoRotate: "自动旋转",
+    smallerFile: "文件更小",
+    betterQuality: "画质更好",
+    pngExifNote: "PNG 为无损输出，但不会保留 EXIF 元数据。",
     maxWidthOptions: {
       original: "原始尺寸",
       "1920": "1920px（全高清）",
@@ -34,7 +42,7 @@ const zhCN: Translation = {
     },
   },
   actions: {
-    convert: "转换为 JPG",
+    convert: "开始转换",
     converting: "转换中...",
     download: "下载",
     downloadAll: "全部下载 (ZIP)",
@@ -47,6 +55,11 @@ const zhCN: Translation = {
     saved: "节省",
     exifPreserved: "EXIF 已保留",
     noExif: "无 EXIF 数据",
+    pending: "等待中",
+    converting: "转换中",
+    done: "完成",
+    error: "错误",
+    remove: "移除文件",
   },
   errors: {
     noFiles: "请至少选择一个文件。",
@@ -62,9 +75,9 @@ const zhCN: Translation = {
     copyright: "heicgo.com — 免费在线 HEIC 转 JPG 转换器。",
   },
   seo: {
-    homeTitle: "HEIC 转 JPG 转换器 — 免费、私密、无需上传",
+    homeTitle: "HEIC 转 JPG 或 PNG 转换器 — 免费、私密、无需上传",
     homeDescription:
-      "在线免费将 HEIC 照片转换为 JPG。100% 保护隐私 — 文件不会离开您的设备。保留 EXIF 元数据，支持批量转换和 ZIP 下载。",
+      "在线免费将 HEIC 照片转换为 JPG 或 PNG。100% 保护隐私 — 文件不会离开您的设备。支持批量转换、ZIP 下载，JPG 输出可保留 EXIF。",
     privacyTitle: "隐私政策 — HEIC 转 JPG 转换器",
     privacyDescription:
       "heicgo.com 的隐私政策。了解我们如何处理您的数据 — 所有转换均在您的设备本地完成。",

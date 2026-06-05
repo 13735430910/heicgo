@@ -1,6 +1,5 @@
 ---
 import type { Locale } from "../i18n/translations";
-import { ALL_LOCALES } from "../i18n/translations";
 import SEO from "../components/layout/SEO.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -12,13 +11,31 @@ interface Props {
   title: string;
   description: string;
   path: string;
+  canonicalPath?: string;
+  alternateLocales?: Locale[];
+  xDefaultPath?: string;
+  noindex?: boolean;
   type?: "website" | "article";
   image?: string;
 }
 
-const { locale, title, description, path, type, image } = Astro.props;
+const {
+  locale,
+  title,
+  description,
+  path,
+  canonicalPath,
+  alternateLocales = [locale],
+  xDefaultPath,
+  noindex = false,
+  type,
+  image,
+} = Astro.props;
 const localeBCP = locale === "zh-CN" ? "zh-Hans" : locale;
-const strippedPath = path.replace(/^\/(en|zh-CN|de|ja|ko|fr)/, "") || "/";
+const strippedPath = (canonicalPath ?? path).replace(/^\/(en|zh-CN|de|ja|ko|fr)/, "") || "/";
+const xDefaultHref = xDefaultPath
+  ? new URL(xDefaultPath, Astro.site).href
+  : new URL("/en" + strippedPath, Astro.site).href;
 ---
 
 <!doctype html>
@@ -29,13 +46,13 @@ const strippedPath = path.replace(/^\/(en|zh-CN|de|ja|ko|fr)/, "") || "/";
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
     <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin />
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-    <SEO {title} {description} {locale} {path} {type} {image} />
+    <SEO {title} {description} {locale} {path} {canonicalPath} {type} {image} {noindex} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    {ALL_LOCALES.map((l) => {
+    {alternateLocales.map((l) => {
       const altBCP = l === "zh-CN" ? "zh-Hans" : l;
       return <link rel="alternate" hreflang={altBCP} href={new URL("/" + l + strippedPath, Astro.site).href} />;
     })}
-    <link rel="alternate" hreflang="x-default" href={new URL("/en" + strippedPath, Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
     <!-- Google AdSense Auto Ads -->
     {!ADSENSE.publisherId.includes("XXXX") && (

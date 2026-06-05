@@ -20,5 +20,6 @@ export const CONVERSION = {
   supportedFormats: [".heic", ".heif"],
   defaultQuality: 0.92,
   defaultMaxWidth: 0, // 0 = original
+  defaultOutputFormat: "jpeg" as const,
   maxConcurrent: 4,
 };

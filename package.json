@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "smoke:batch": "node scripts/smoke-batch.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

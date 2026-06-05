@@ -10,9 +10,11 @@ export function getStaticPaths() {
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
 const path = Astro.url.pathname;
+const canonicalPath = locale === "en" ? path : path.replace(`/${locale}/`, "/en/");
+const noindex = locale !== "en";
 ---
 
-<BaseLayout locale={locale} title="Contact — heicgo" description="Get in touch with the heicgo team. We welcome feedback, bug reports, and partnership inquiries." path={path}>
+<BaseLayout locale={locale} title="Contact — heicgo" description="Get in touch with the heicgo team. We welcome feedback, bug reports, and partnership inquiries." path={path} canonicalPath={canonicalPath} noindex={noindex}>
   <div class="max-w-3xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-bold text-text mb-4">Contact Us</h1>
     <p class="text-text-secondary mb-8">

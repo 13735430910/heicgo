@@ -1,4 +1,5 @@
 export interface ConversionOptions {
+  outputFormat: "jpeg" | "png";
   quality: number; // 0.1-1.0
   maxWidth: number; // 0 = original
   preserveExif: boolean;

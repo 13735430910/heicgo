@@ -12,7 +12,12 @@ export default defineConfig({
   integrations: [
     preact({ compat: true }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        const url = new URL(page);
+        return !/^\/(zh-CN|de|ja|ko|fr)\/(about|contact|faq|privacy|terms)\//.test(url.pathname);
+      },
+    }),
   ],
 
   vite: {

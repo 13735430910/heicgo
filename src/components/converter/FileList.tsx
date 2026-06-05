@@ -3,7 +3,16 @@ import type { FileEntry } from "../../lib/conversion/types";
 interface FileListProps {
   entries: FileEntry[];
   onRemove: (id: string) => void;
-  texts: { originalSize: string; convertedSize: string; saved: string };
+  texts: {
+    originalSize: string;
+    convertedSize: string;
+    saved: string;
+    pending: string;
+    converting: string;
+    done: string;
+    error: string;
+    remove: string;
+  };
 }
 
 function formatSize(bytes: number): string {
@@ -13,13 +22,13 @@ function formatSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function statusBadge(entry: FileEntry) {
+function statusBadge(entry: FileEntry, texts: FileListProps["texts"]) {
   switch (entry.status) {
     case "pending":
-      return <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded">Pending</span>;
+      return <span class="text-xs text-text-muted bg-gray-100 px-2 py-0.5 rounded">{texts.pending}</span>;
     case "converting":
       return (
-        <div class="w-full max-w-[120px]">
+        <div class="w-full min-w-[72px] max-w-[120px]" aria-label={texts.converting}>
           <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
             <div
               class="h-full bg-primary rounded-full transition-all duration-300"
@@ -29,9 +38,9 @@ function statusBadge(entry: FileEntry) {
         </div>
       );
     case "done":
-      return <span class="text-xs text-success bg-green-50 px-2 py-0.5 rounded">Done</span>;
+      return <span class="text-xs text-success bg-green-50 px-2 py-0.5 rounded">{texts.done}</span>;
     case "error":
-      return <span class="text-xs text-error bg-red-50 px-2 py-0.5 rounded">Error</span>;
+      return <span class="text-xs text-error bg-red-50 px-2 py-0.5 rounded">{texts.error}</span>;
   }
 }
 
@@ -67,7 +76,7 @@ export function FileList({ entries, onRemove, texts }: FileListProps) {
           {/* Info */}
           <div class="flex-1 min-w-0">
             <p class="text-sm font-medium text-text truncate">{entry.file.name}</p>
-            <div class="flex gap-3 text-xs text-text-muted mt-0.5">
+            <div class="flex flex-wrap gap-x-3 gap-y-1 text-xs text-text-muted mt-0.5">
               <span>{texts.originalSize}: {formatSize(entry.file.size)}</span>
               {entry.result && entry.status === "done" && !entry.result.error && (
                 <>
@@ -90,13 +99,13 @@ export function FileList({ entries, onRemove, texts }: FileListProps) {
           </div>
 
           {/* Status / Progress */}
-          <div class="flex-shrink-0">{statusBadge(entry)}</div>
+          <div class="flex-shrink-0">{statusBadge(entry, texts)}</div>
 
           {/* Remove */}
           <button
             onClick={() => onRemove(entry.id)}
             class="flex-shrink-0 p-1 text-text-muted hover:text-error transition-colors"
-            aria-label="Remove file"
+            aria-label={texts.remove}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18" />

@@ -19,10 +19,15 @@ export interface Translation {
     maxSize: string;
   };
   options: {
+    outputFormat: string;
+    outputFormatOptions: Record<"jpeg" | "png", string>;
     quality: string;
     maxWidth: string;
     preserveExif: string;
     autoRotate: string;
+    smallerFile: string;
+    betterQuality: string;
+    pngExifNote: string;
     maxWidthOptions: Record<string, string>;
   };
   actions: {
@@ -39,6 +44,11 @@ export interface Translation {
     saved: string;
     exifPreserved: string;
     noExif: string;
+    pending: string;
+    converting: string;
+    done: string;
+    error: string;
+    remove: string;
   };
   errors: {
     noFiles: string;
@@ -71,8 +81,8 @@ export interface Translation {
 
 export type Locale = "en" | "zh-CN" | "de" | "ja" | "ko" | "fr";
 
-/** Locales that get full content pages including blog */
-export const FULL_LOCALES: Locale[] = ["en", "zh-CN"];
+/** Locales that currently have full blog body content. */
+export const FULL_LOCALES: Locale[] = ["en"];
 
 /** All supported locales for UI */
 export const ALL_LOCALES: Locale[] = ["en", "zh-CN", "de", "ja", "ko", "fr"];

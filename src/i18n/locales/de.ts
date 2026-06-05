@@ -1,11 +1,11 @@
 import type { Translation } from "../translations";
 
 const de: Translation = {
-  siteTitle: "HEIC zu JPG Konverter — Kostenlos, privat, kein Upload",
+  siteTitle: "HEIC zu JPG oder PNG Konverter — Kostenlos, privat, kein Upload",
   siteDescription:
-    "Konvertiere HEIC Fotos online zu JPG. 100% privat — Dateien verlassen dein Gerät nicht. EXIF-Daten bleiben erhalten.",
+    "Konvertiere HEIC Fotos online zu JPG oder PNG. 100% privat — Dateien verlassen dein Gerät nicht. EXIF-Daten bleiben bei JPG erhalten.",
   nav: { home: "Start", blog: "Blog", faq: "FAQ", about: "Über uns", contact: "Kontakt" },
-  hero: { title: "HEIC zu JPG Konverter", subtitle: "Kostenlos · Privat · Kein Upload nötig" },
+  hero: { title: "HEIC zu JPG oder PNG Konverter", subtitle: "Kostenlos · Privat · Kein Upload nötig" },
   dropZone: {
     title: "HEIC-Dateien hier ablegen",
     browse: "Dateien auswählen",
@@ -13,10 +13,18 @@ const de: Translation = {
     maxSize: "Max. 50 MB pro Datei",
   },
   options: {
+    outputFormat: "Ausgabeformat",
+    outputFormatOptions: {
+      jpeg: "JPG",
+      png: "PNG",
+    },
     quality: "Qualität",
     maxWidth: "Max. Breite",
     preserveExif: "EXIF-Daten behalten",
     autoRotate: "Auto-Rotation",
+    smallerFile: "Kleinere Datei",
+    betterQuality: "Bessere Qualität",
+    pngExifNote: "PNG ist verlustfrei, erhält aber keine EXIF-Metadaten.",
     maxWidthOptions: {
       original: "Original",
       "1920": "1920px (Full HD)",
@@ -25,7 +33,7 @@ const de: Translation = {
     },
   },
   actions: {
-    convert: "In JPG konvertieren",
+    convert: "Dateien konvertieren",
     converting: "Konvertiere...",
     download: "Herunterladen",
     downloadAll: "Alle herunterladen (ZIP)",
@@ -38,6 +46,11 @@ const de: Translation = {
     saved: "Gespart",
     exifPreserved: "EXIF erhalten",
     noExif: "Keine EXIF-Daten",
+    pending: "Wartet",
+    converting: "Konvertiert",
+    done: "Fertig",
+    error: "Fehler",
+    remove: "Datei entfernen",
   },
   errors: {
     noFiles: "Bitte wähle mindestens eine Datei aus.",
@@ -53,8 +66,8 @@ const de: Translation = {
     copyright: "heicgo.com — Kostenloser HEIC zu JPG Konverter.",
   },
   seo: {
-    homeTitle: "HEIC zu JPG Konverter — Kostenlos, privat, kein Upload",
-    homeDescription: "Konvertiere HEIC Fotos online zu JPG. 100% privat. EXIF-Daten bleiben erhalten.",
+    homeTitle: "HEIC zu JPG oder PNG Konverter — Kostenlos, privat, kein Upload",
+    homeDescription: "Konvertiere HEIC Fotos online zu JPG oder PNG. 100% privat. JPG-Ausgaben behalten EXIF-Daten.",
     privacyTitle: "Datenschutz — HEIC zu JPG Konverter",
     privacyDescription: "Datenschutzerklärung für heicgo.com. Alle Konvertierungen erfolgen lokal auf deinem Gerät.",
     termsTitle: "Nutzungsbedingungen — HEIC zu JPG Konverter",

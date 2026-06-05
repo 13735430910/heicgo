@@ -14,14 +14,31 @@ interface ConverterProps {
 export interface ConverterTexts {
   dropZone: { title: string; browse: string; supported: string; maxSize: string };
   options: {
+    outputFormat: string;
+    outputFormatOptions: Record<"jpeg" | "png", string>;
     quality: string;
     maxWidth: string;
     preserveExif: string;
     autoRotate: string;
+    smallerFile: string;
+    betterQuality: string;
+    pngExifNote: string;
     maxWidthOptions: Record<string, string>;
   };
-  actions: { convert: string; converting: string; downloadAll: string; clear: string };
-  results: { title: string; originalSize: string; convertedSize: string; saved: string; exifPreserved: string; noExif: string };
+  actions: { convert: string; converting: string; download: string; downloadAll: string; clear: string };
+  results: {
+    title: string;
+    originalSize: string;
+    convertedSize: string;
+    saved: string;
+    exifPreserved: string;
+    noExif: string;
+    pending: string;
+    converting: string;
+    done: string;
+    error: string;
+    remove: string;
+  };
   errors: { noFiles: string; unsupportedFormat: string; fileTooLarge: string; conversionFailed: string };
 }
 
@@ -32,6 +49,7 @@ export function Converter({ texts }: ConverterProps) {
   const error = useSignal<string | null>(null);
 
   const options = useSignal<ConversionOptions>({
+    outputFormat: CONVERSION.defaultOutputFormat,
     quality: CONVERSION.defaultQuality,
     maxWidth: CONVERSION.defaultMaxWidth,
     preserveExif: true,
@@ -171,7 +189,16 @@ export function Converter({ texts }: ConverterProps) {
           <FileList
             entries={entries.value}
             onRemove={removeEntry}
-            texts={{ originalSize: texts.results.originalSize, convertedSize: texts.results.convertedSize, saved: texts.results.saved }}
+            texts={{
+              originalSize: texts.results.originalSize,
+              convertedSize: texts.results.convertedSize,
+              saved: texts.results.saved,
+              pending: texts.results.pending,
+              converting: texts.results.converting,
+              done: texts.results.done,
+              error: texts.results.error,
+              remove: texts.results.remove,
+            }}
           />
 
           <ConversionOptionsPanel
@@ -212,7 +239,7 @@ export function Converter({ texts }: ConverterProps) {
             <ResultList
               entries={entries.value}
               results={results.value}
-              texts={texts.results}
+              texts={{ ...texts.results, download: texts.actions.download }}
             />
           )}
         </>

@@ -4,10 +4,15 @@ interface ConversionOptionsProps {
   options: ConversionOptions;
   onChange: (partial: Partial<ConversionOptions>) => void;
   texts: {
+    outputFormat: string;
+    outputFormatOptions: Record<"jpeg" | "png", string>;
     quality: string;
     maxWidth: string;
     preserveExif: string;
     autoRotate: string;
+    smallerFile: string;
+    betterQuality: string;
+    pngExifNote: string;
     maxWidthOptions: Record<string, string>;
   };
   disabled: boolean;
@@ -20,9 +25,30 @@ export function ConversionOptionsPanel({
   disabled,
 }: ConversionOptionsProps) {
   return (
-    <div class="mt-6 p-4 bg-surface border border-border rounded-lg space-y-4">
-      {/* Quality slider */}
+    <div class="mt-6 p-4 bg-surface border border-border rounded-lg space-y-5">
       <div>
+        <label class="text-sm font-medium text-text block mb-2">{texts.outputFormat}</label>
+        <div class="grid grid-cols-2 gap-2" role="group" aria-label={texts.outputFormat}>
+          {(["jpeg", "png"] as const).map((format) => (
+            <button
+              type="button"
+              data-testid={`output-format-${format}`}
+              onClick={() => onChange({ outputFormat: format })}
+              disabled={disabled}
+              class={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                options.outputFormat === format
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white text-text-secondary border-border hover:border-text-muted"
+              } disabled:opacity-50`}
+            >
+              {texts.outputFormatOptions[format]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Quality slider */}
+      <div class={options.outputFormat === "png" ? "opacity-50" : ""}>
         <div class="flex justify-between items-center mb-2">
           <label class="text-sm font-medium text-text">{texts.quality}</label>
           <span class="text-sm text-text-muted tabular-nums">
@@ -38,13 +64,16 @@ export function ConversionOptionsPanel({
           onInput={(e) =>
             onChange({ quality: parseFloat((e.target as HTMLInputElement).value) })
           }
-          disabled={disabled}
+          disabled={disabled || options.outputFormat === "png"}
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary disabled:opacity-50"
         />
         <div class="flex justify-between text-xs text-text-muted mt-1">
-          <span>Smaller file</span>
-          <span>Better quality</span>
+          <span>{texts.smallerFile}</span>
+          <span>{texts.betterQuality}</span>
         </div>
+        {options.outputFormat === "png" && (
+          <p class="text-xs text-text-muted mt-2">{texts.pngExifNote}</p>
+        )}
       </div>
 
       {/* Max width */}
@@ -75,7 +104,7 @@ export function ConversionOptionsPanel({
             onChange={(e) =>
               onChange({ preserveExif: (e.target as HTMLInputElement).checked })
             }
-            disabled={disabled}
+            disabled={disabled || options.outputFormat === "png"}
             class="w-4 h-4 rounded accent-primary"
           />
           <span class="text-sm text-text">{texts.preserveExif}</span>

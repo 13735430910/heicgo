@@ -7,6 +7,7 @@ interface ResultListProps {
     title: string;
     exifPreserved: string;
     noExif: string;
+    download: string;
   };
 }
 
@@ -24,7 +25,7 @@ export function ResultList({ entries, results, texts }: ResultListProps) {
           return (
             <div
               key={entry.id}
-              class="bg-surface border border-border rounded-lg overflow-hidden group"
+              class="relative bg-surface border border-border rounded-lg overflow-hidden group"
             >
               {/* Thumbnail */}
               <div class="aspect-square bg-gray-100 overflow-hidden">
@@ -56,11 +57,11 @@ export function ResultList({ entries, results, texts }: ResultListProps) {
               {/* Download button overlay */}
               <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <a
-                  href={URL.createObjectURL(result.blob)}
+                  href={result.thumbnailUrl}
                   download={result.fileName}
                   class="bg-white text-text px-3 py-1.5 rounded text-sm font-medium hover:bg-gray-100"
                 >
-                  Download
+                  {texts.download}
                 </a>
               </div>
             </div>

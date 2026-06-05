@@ -1,9 +1,9 @@
 import type { Translation } from "../translations";
 
 const en: Translation = {
-  siteTitle: "HEIC to JPG Converter — Free, Private, No Upload",
+  siteTitle: "HEIC to JPG or PNG Converter — Free, Private, No Upload",
   siteDescription:
-    "Convert HEIC photos to JPG online for free. 100% private — files never leave your device. EXIF metadata preserved.",
+    "Convert HEIC photos to JPG or PNG online for free. 100% private — files never leave your device. EXIF metadata preserved for JPG output.",
   nav: {
     home: "Home",
     blog: "Blog",
@@ -12,7 +12,7 @@ const en: Translation = {
     contact: "Contact",
   },
   hero: {
-    title: "HEIC to JPG Converter",
+    title: "HEIC to JPG or PNG Converter",
     subtitle: "Free · Private · No Upload Required",
   },
   dropZone: {
@@ -22,10 +22,18 @@ const en: Translation = {
     maxSize: "Max 50MB per file",
   },
   options: {
+    outputFormat: "Output format",
+    outputFormatOptions: {
+      jpeg: "JPG",
+      png: "PNG",
+    },
     quality: "Quality",
     maxWidth: "Max Width",
     preserveExif: "Preserve EXIF data",
     autoRotate: "Auto rotate",
+    smallerFile: "Smaller file",
+    betterQuality: "Better quality",
+    pngExifNote: "PNG output is lossless but does not preserve EXIF metadata.",
     maxWidthOptions: {
       original: "Original",
       "1920": "1920px (Full HD)",
@@ -34,7 +42,7 @@ const en: Translation = {
     },
   },
   actions: {
-    convert: "Convert to JPG",
+    convert: "Convert files",
     converting: "Converting...",
     download: "Download",
     downloadAll: "Download All (ZIP)",
@@ -47,6 +55,11 @@ const en: Translation = {
     saved: "Saved",
     exifPreserved: "EXIF preserved",
     noExif: "No EXIF data",
+    pending: "Pending",
+    converting: "Converting",
+    done: "Done",
+    error: "Error",
+    remove: "Remove file",
   },
   errors: {
     noFiles: "Please select at least one file.",
@@ -62,9 +75,9 @@ const en: Translation = {
     copyright: "heicgo.com — Free online HEIC to JPG converter.",
   },
   seo: {
-    homeTitle: "HEIC to JPG Converter — Free, Private, No Upload",
+    homeTitle: "HEIC to JPG or PNG Converter — Free, Private, No Upload",
     homeDescription:
-      "Convert HEIC photos to JPG online for free. 100% private — files never leave your device. EXIF metadata preserved. Batch convert with ZIP download.",
+      "Convert HEIC photos to JPG or PNG online for free. 100% private — files never leave your device. Batch convert with ZIP download and EXIF preservation for JPG.",
     privacyTitle: "Privacy Policy — HEIC to JPG Converter",
     privacyDescription:
       "Privacy policy for heicgo.com. Learn how we handle your data — all conversions happen locally on your device.",

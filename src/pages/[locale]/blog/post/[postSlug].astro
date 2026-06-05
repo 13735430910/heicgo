@@ -5,14 +5,13 @@ import AdBanner from "../../../../components/ads/AdBanner.astro";
 import AuthorBio from "../../../../components/blog/AuthorBio.astro";
 import RelatedPosts from "../../../../components/blog/RelatedPosts.astro";
 import { getLocaleFromParams } from "../../../../i18n/ui";
-import { ALL_LOCALES, FULL_LOCALES } from "../../../../i18n/translations";
-import { getBlogTranslation } from "../../../../i18n/blog-translations";
+import { FULL_LOCALES } from "../../../../i18n/translations";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   const paths = [];
   for (const post of posts) {
-    for (const locale of ALL_LOCALES) {
+    for (const locale of FULL_LOCALES) {
       paths.push({ params: { locale, postSlug: post.id }, props: { post } });
     }
   }
@@ -24,11 +23,8 @@ const { Content } = await render(post);
 const locale = getLocaleFromParams(Astro.params);
 const path = Astro.url.pathname;
 
-const isFullLocale = FULL_LOCALES.includes(locale);
-const seoPath = isFullLocale ? path : path.replace(`/${locale}/`, "/en/");
-const blogTrans = !isFullLocale ? getBlogTranslation(locale, Astro.params.postSlug || "") : null;
-const displayTitle = blogTrans?.title || post.data.title;
-const displayDesc = blogTrans?.description || post.data.description;
+const displayTitle = post.data.title;
+const displayDesc = post.data.description;
 
 // Load all posts for related posts calculation
 const allPosts = await getCollection("blog");
@@ -43,7 +39,7 @@ const articleSchema = {
   dateModified: (post.data.updatedDate || post.data.publishDate).toISOString(),
   author: { "@type": "Organization", name: "heicgo Editorial Team", url: "https://heicgo.com/en/about" },
   publisher: { "@type": "Organization", name: "heicgo", url: "https://heicgo.com" },
-  mainEntityOfPage: { "@type": "WebPage", "@id": new URL(seoPath, Astro.site).href },
+  mainEntityOfPage: { "@type": "WebPage", "@id": new URL(path, Astro.site).href },
 };
 
 // Breadcrumb structured data
@@ -61,7 +57,7 @@ const dateLocale = locale === "zh-CN" ? "zh-CN" : "en-US";
 const dateOpts: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
 ---
 
-<BaseLayout locale={locale} title={displayTitle} description={displayDesc} path={seoPath} type="article">
+<BaseLayout locale={locale} title={displayTitle} description={displayDesc} path={path} alternateLocales={FULL_LOCALES} type="article">
   <article class="max-w-3xl mx-auto px-4 py-12">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-sm text-text-muted mb-6" aria-label="Breadcrumb">

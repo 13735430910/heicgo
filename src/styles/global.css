@@ -33,14 +33,6 @@ body {
   overflow: hidden;
 }
 
-.ad-slot::before {
-  content: "Advertisement";
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 /* Drag and drop highlight */
 .drop-zone-active {
   border-color: var(--color-primary) !important;

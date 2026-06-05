@@ -3,20 +3,17 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import AdBanner from "../../../components/ads/AdBanner.astro";
 import { getLocaleFromParams, getTranslation } from "../../../i18n/ui";
-import { ALL_LOCALES, FULL_LOCALES } from "../../../i18n/translations";
-import { getBlogTranslation } from "../../../i18n/blog-translations";
+import { FULL_LOCALES } from "../../../i18n/translations";
 
 export function getStaticPaths() {
-  return ALL_LOCALES.map((locale) => ({ params: { locale } }));
+  return FULL_LOCALES.map((locale) => ({ params: { locale } }));
 }
 
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
 const path = Astro.url.pathname;
 
-// Small languages: canonical to /en/blog/
 const isFullLocale = FULL_LOCALES.includes(locale);
-const seoPath = isFullLocale ? path : path.replace(`/${locale}/`, "/en/");
 
 const posts = await getCollection("blog");
 posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
@@ -41,7 +38,7 @@ const dateLocale = locale === "zh-CN" ? "zh-CN" : "en-US";
 const dateOpts = { year: "numeric", month: "short", day: "numeric" };
 ---
 
-<BaseLayout locale={locale} title={t.seo.blogTitle} description={t.seo.blogDescription} path={seoPath} type="website">
+<BaseLayout locale={locale} title={t.seo.blogTitle} description={t.seo.blogDescription} path={path} alternateLocales={FULL_LOCALES} type="website">
   <div class="max-w-3xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-bold text-text mb-2">Blog</h1>
     <p class="text-text-secondary mb-8">

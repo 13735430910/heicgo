@@ -4,6 +4,7 @@ import AdBanner from "../../components/ads/AdBanner.astro";
 import { Converter } from "../../components/converter/Converter";
 import { getLocaleFromParams, getTranslation } from "../../i18n/ui";
 import { ALL_LOCALES } from "../../i18n/translations";
+import { homeContent } from "../../i18n/home-content";
 
 export function getStaticPaths() {
   return ALL_LOCALES.map((locale) => ({ params: { locale } }));
@@ -11,125 +12,103 @@ export function getStaticPaths() {
 
 const locale = getLocaleFromParams(Astro.params);
 const t = getTranslation(locale);
+const content = homeContent[locale];
 const path = Astro.url.pathname;
 
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: t.seo.homeTitle,
+  name: t.hero.title,
   description: t.seo.homeDescription,
   totalTime: "PT30S",
   tool: [
     { "@type": "HowToTool", name: "Web browser (Chrome, Safari, Firefox, or Edge)" },
   ],
-  step: [
-    {
+  step: content.steps.map((step, index) => ({
       "@type": "HowToStep",
-      position: 1,
-      name: "Upload HEIC files",
-      text: "Drag and drop your HEIC or HEIF files onto the converter area, or click Browse to select files from your device. All processing is local — files never leave your device.",
-    },
-    {
-      "@type": "HowToStep",
-      position: 2,
-      name: "Adjust conversion settings",
-      text: "Use the quality slider to balance file size and image quality (92% recommended). Optionally set a maximum width to resize images. Enable EXIF preservation to keep GPS, camera data, and timestamps.",
-    },
-    {
-      "@type": "HowToStep",
-      position: 3,
-      name: "Convert to JPEG",
-      text: "Click the Convert to JPG button. The HEIC file is decoded in your browser using WebAssembly or Safari's native decoder, processed through Canvas, and encoded as JPEG. EXIF metadata is re-injected into the output file.",
-    },
-    {
-      "@type": "HowToStep",
-      position: 4,
-      name: "Download converted files",
-      text: "Download individual JPEG files or use the Download All (ZIP) button to get all converted files in a single archive. Files are ready to use on any device or platform.",
-    },
-  ],
+      position: index + 1,
+      name: step.title,
+      text: step.body,
+  })),
 };
 ---
 
-<BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path}>
-  <section class="max-w-6xl mx-auto px-4 pt-12 pb-6 text-center">
+<BaseLayout locale={locale} title={t.seo.homeTitle} description={t.seo.homeDescription} path={path} alternateLocales={ALL_LOCALES} xDefaultPath="/">
+  <section class="max-w-6xl mx-auto px-4 pt-8 pb-5 text-center">
+    <p class="text-sm font-medium text-primary mb-3">heicgo.com</p>
     <h1 class="text-3xl sm:text-4xl font-bold text-text mb-3">{t.hero.title}</h1>
-    <p class="text-lg text-text-secondary">{t.hero.subtitle}</p>
+    <p class="text-lg text-text-secondary max-w-2xl mx-auto">{t.hero.subtitle}</p>
   </section>
 
   <AdBanner />
 
-  <section class="max-w-3xl mx-auto px-4 pb-8">
+  <section class="max-w-4xl mx-auto px-4 pb-10">
     <Converter texts={t} client:load />
   </section>
 
   <AdBanner />
 
-  <!-- SEO Content Section — required for AdSense content quality review -->
-  <section class="mx-auto px-4 pb-16 prose prose-slate max-w-none max-w-3xl prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary">
-    <h2>Free HEIC to JPG Converter — No Upload Required</h2>
-    <p>
-      <strong>heicgo.com</strong> is a free online tool that converts HEIC photos to JPEG format
-      directly in your browser. Unlike other converters, heicgo <strong>never uploads your files</strong>
-      to a server — all processing happens locally on your device using WebAssembly technology.
-      This means your photos stay private, and you can convert as many files as you want with
-      no limits, no registration, and no watermark.
-    </p>
+  <section class="bg-white border-y border-border">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+      <div class="prose prose-slate max-w-none prose-headings:text-text prose-p:text-text-secondary prose-a:text-primary">
+        <h2>{content.introTitle}</h2>
+        {content.intro.map((p) => <p>{p}</p>)}
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold text-text mb-4">{content.benefitsTitle}</h2>
+        <div class="grid gap-3 sm:grid-cols-2">
+          {content.benefits.map((item) => (
+            <article class="bg-bg border border-border rounded-lg p-4">
+              <h3 class="font-semibold text-text mb-1">{item.title}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <h3>Why Choose heicgo?</h3>
-    <ul>
-      <li><strong>100% Private</strong> — Files never leave your device. No upload, no server processing.</li>
-      <li><strong>EXIF Data Preserved</strong> — GPS location, date taken, camera model, and orientation stay intact. heicgo is the only web-based HEIC converter that preserves EXIF metadata.</li>
-      <li><strong>Batch Conversion</strong> — Convert multiple HEIC files at once. Download them individually or as a single ZIP archive.</li>
-      <li><strong>Safari-Optimized</strong> — On Safari 17+, heicgo uses the browser's native HEIC decoder for conversions up to 39x faster than WebAssembly alone.</li>
-      <li><strong>Quality Control</strong> — Adjust output quality from 10% to 100% to balance file size and image fidelity.</li>
-      <li><strong>Works Everywhere</strong> — Compatible with Chrome, Firefox, Edge, and Safari on desktop and mobile.</li>
-    </ul>
+  <section class="max-w-6xl mx-auto px-4 py-12 grid gap-10 lg:grid-cols-2">
+    <div>
+      <h2 class="text-xl font-semibold text-text mb-5">{content.workflowTitle}</h2>
+      <ol class="space-y-4">
+        {content.steps.map((step, index) => (
+          <li class="flex gap-4">
+            <span class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-primary text-white text-sm font-semibold">{index + 1}</span>
+            <div>
+              <h3 class="font-semibold text-text">{step.title}</h3>
+              <p class="text-sm text-text-secondary leading-relaxed mt-1">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
 
-    <h3>What Is a HEIC File?</h3>
-    <p>
-      HEIC (High Efficiency Image Container) is Apple's default photo format since iOS 11.
-      It uses HEVC compression to store images at roughly <strong>half the file size of JPEG</strong>
-      at equivalent quality. While great for saving storage space on your iPhone, HEIC files
-      cause compatibility issues when sharing photos with Windows users, uploading to websites,
-      or using older photo editing software.
-    </p>
+    <div>
+      <h2 class="text-xl font-semibold text-text mb-5">{content.useCasesTitle}</h2>
+      <ul class="space-y-3">
+        {content.useCases.map((item) => (
+          <li class="flex gap-3 text-sm text-text-secondary leading-relaxed">
+            <span class="mt-1.5 h-2 w-2 flex-none rounded-full bg-primary"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-    <h3>How Does It Work?</h3>
-    <p>
-      When you drag a HEIC file into heicgo, the conversion happens entirely in your browser:
-    </p>
-    <ol>
-      <li><strong>EXIF Extraction</strong> — Metadata like GPS coordinates, camera settings, and timestamps are extracted from the HEIC file before decoding.</li>
-      <li><strong>HEIC Decoding</strong> — On Safari, the browser's built-in decoder handles HEIC natively. On other browsers, heicgo uses a WebAssembly (WASM) decoder — a sandboxed binary that runs at near-native speed.</li>
-      <li><strong>Canvas Processing</strong> — The decoded image is rendered to an HTML Canvas where optional resizing and rotation are applied.</li>
-      <li><strong>JPEG Encoding</strong> — The canvas is exported as JPEG at your chosen quality setting.</li>
-      <li><strong>EXIF Injection</strong> — The previously extracted metadata is written back into the JPEG file, ensuring GPS, date, and camera information survive the conversion.</li>
-    </ol>
-
-    <h3>Common Use Cases</h3>
-    <ul>
-      <li>Transferring iPhone photos to a Windows PC that can't open HEIC</li>
-      <li>Uploading photos to websites or social media that only accept JPEG</li>
-      <li>Sending photos to a printing service that requires JPEG format</li>
-      <li>Opening HEIC files in older photo editing applications</li>
-      <li>Archiving photos in a universally compatible format while preserving metadata</li>
-    </ul>
-
-    <h3>Frequently Asked Questions</h3>
-    <dl>
-      <dt class="font-semibold mt-4">Is heicgo really free?</dt>
-      <dd class="ml-0">Yes. heicgo is completely free with no limits on the number of files or conversions. The site is supported by advertising.</dd>
-
-      <dt class="font-semibold mt-4">Does converting HEIC to JPEG lose quality?</dt>
-      <dd class="ml-0">At 92-100% quality, the visual difference is imperceptible. HEIC is more efficient than JPEG, so the output file may be larger — but the image quality is preserved. See our <a href={`/${locale}/blog/post/heic-quality-loss-myth`}>quality guide</a> for details.</dd>
-
-      <dt class="font-semibold mt-4">What about my privacy?</dt>
-      <dd class="ml-0">heicgo processes everything locally in your browser. Your files are never uploaded to any server. You can verify this by checking your browser's Network tab — no file upload occurs. Read our <a href={`/${locale}/privacy`}>privacy policy</a>.</dd>
-
-      <dt class="font-semibold mt-4">Can I use heicgo on my phone?</dt>
-      <dd class="ml-0">Yes. heicgo works on Safari for iPhone and Chrome for Android. The interface is fully responsive and touch-friendly.</dd>
-    </dl>
+  <section class="bg-white border-t border-border">
+    <div class="max-w-4xl mx-auto px-4 py-12">
+      <h2 class="text-xl font-semibold text-text mb-6">{content.faqTitle}</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {content.faqs.map((faq) => (
+          <article class="border border-border rounded-lg p-4 bg-surface">
+            <h3 class="font-semibold text-text mb-2">{faq.q}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">{faq.a}</p>
+          </article>
+        ))}
+      </div>
+    </div>
   </section>
 
   <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />

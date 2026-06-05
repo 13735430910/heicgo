@@ -6,8 +6,10 @@ interface Props {
   description: string;
   locale: Locale;
   path: string;
+  canonicalPath?: string;
   type?: "website" | "article";
   image?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -15,11 +17,13 @@ const {
   description,
   locale,
   path,
+  canonicalPath,
   type = "website",
   image = "/og-image.png",
+  noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(path, Astro.site).href;
+const canonicalURL = new URL(canonicalPath ?? path, Astro.site).href;
 const localeTag = locale === "zh-CN" ? "zh-Hans" : locale;
 ---
 
@@ -46,8 +50,8 @@ const localeTag = locale === "zh-CN" ? "zh-Hans" : locale;
 <meta name="twitter:image" content={new URL(image, Astro.site).href} />
 
 <!-- robots -->
-<meta name="robots" content="index, follow" />
-<meta name="googlebot" content="index, follow" />
+<meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+<meta name="googlebot" content={noindex ? "noindex, follow" : "index, follow"} />
 
 <!-- Viewport -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
